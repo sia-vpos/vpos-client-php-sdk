@@ -9,7 +9,7 @@
 class RestClient
 {
     private const CONTENT_TYPE = "application/x-www-form-urlencoded";
-    private const POST = "POST";
+    private const POST_METHOD = "POST";
 
     /**
      * Perform a REST call to the selected endpoint
@@ -20,7 +20,7 @@ class RestClient
      */
     public function callAPI($url, $data)
     {
-        $method = self::POST;
+        $method = self::POST_METHOD;
         $curl = curl_init();
         switch ($method) {
             case "POST":
@@ -56,6 +56,5 @@ class RestClient
         curl_close($curl);
         return $result;
     }
-
 
 }

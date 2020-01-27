@@ -58,24 +58,4 @@ class AESEncoder
         return $length == 16 || $length == 24 || $length == 32;
     }
 
-    /**
-     * Get encoded/decoded data
-     *
-     * @return string|null
-     */
-    public function getData()
-    {
-        return $this->data;
-    }
-
-    /**
-     * To string return resulting data
-     *
-     * @return null|string
-     */
-    public function __toString()
-    {
-        return $this->getData();
-    }
-
 }
