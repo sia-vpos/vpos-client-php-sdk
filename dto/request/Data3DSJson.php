@@ -65,27 +65,11 @@ class Data3DSJson
     }
 
     /**
-     * @return string|null
-     */
-    public function getThreeDSRequestorChallengeInd(): ?string
-    {
-        return $this->threeDSRequestorChallengeInd;
-    }
-
-    /**
      * @param string|null $threeDSRequestorChallengeInd
      */
     public function setThreeDSRequestorChallengeInd(?string $threeDSRequestorChallengeInd): void
     {
         $this->threeDSRequestorChallengeInd = $threeDSRequestorChallengeInd;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getAddrMatch(): ?string
-    {
-        return $this->addrMatch;
     }
 
     /**
@@ -97,27 +81,11 @@ class Data3DSJson
     }
 
     /**
-     * @return string|null
-     */
-    public function getChAccAgeInd(): ?string
-    {
-        return $this->chAccAgeInd;
-    }
-
-    /**
      * @param string|null $chAccAgeInd
      */
     public function setChAccAgeInd(?string $chAccAgeInd): void
     {
         $this->chAccAgeInd = $chAccAgeInd;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getChAccChange(): ?string
-    {
-        return $this->chAccChange;
     }
 
     /**
@@ -129,27 +97,11 @@ class Data3DSJson
     }
 
     /**
-     * @return string|null
-     */
-    public function getChAccChangeInd(): ?string
-    {
-        return $this->chAccChangeInd;
-    }
-
-    /**
      * @param string|null $chAccChangeInd
      */
     public function setChAccChangeInd(?string $chAccChangeInd): void
     {
         $this->chAccChangeInd = $chAccChangeInd;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getChAccDate(): ?string
-    {
-        return $this->chAccDate;
     }
 
     /**
@@ -161,27 +113,11 @@ class Data3DSJson
     }
 
     /**
-     * @return string|null
-     */
-    public function getChAccPwChange(): ?string
-    {
-        return $this->chAccPwChange;
-    }
-
-    /**
      * @param string|null $chAccPwChange
      */
     public function setChAccPwChange(?string $chAccPwChange): void
     {
         $this->chAccPwChange = $chAccPwChange;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getChAccPwChangeInd(): ?string
-    {
-        return $this->chAccPwChangeInd;
     }
 
     /**
@@ -193,27 +129,11 @@ class Data3DSJson
     }
 
     /**
-     * @return string|null
-     */
-    public function getNbPurchaseAccount(): ?string
-    {
-        return $this->nbPurchaseAccount;
-    }
-
-    /**
      * @param string|null $nbPurchaseAccount
      */
     public function setNbPurchaseAccount(?string $nbPurchaseAccount): void
     {
         $this->nbPurchaseAccount = $nbPurchaseAccount;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getTxnActivityDay(): ?string
-    {
-        return $this->txnActivityDay;
     }
 
     /**
@@ -225,27 +145,11 @@ class Data3DSJson
     }
 
     /**
-     * @return string|null
-     */
-    public function getTxnActivityYear(): ?string
-    {
-        return $this->txnActivityYear;
-    }
-
-    /**
      * @param string|null $txnActivityYear
      */
     public function setTxnActivityYear(?string $txnActivityYear): void
     {
         $this->txnActivityYear = $txnActivityYear;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getShipAddressUsage(): ?string
-    {
-        return $this->shipAddressUsage;
     }
 
     /**
@@ -257,27 +161,11 @@ class Data3DSJson
     }
 
     /**
-     * @return string|null
-     */
-    public function getShipAddressUsageInd(): ?string
-    {
-        return $this->shipAddressUsageInd;
-    }
-
-    /**
      * @param string|null $shipAddressUsageInd
      */
     public function setShipAddressUsageInd(?string $shipAddressUsageInd): void
     {
         $this->shipAddressUsageInd = $shipAddressUsageInd;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getShipNameIndicator(): ?string
-    {
-        return $this->shipNameIndicator;
     }
 
     /**
@@ -289,27 +177,11 @@ class Data3DSJson
     }
 
     /**
-     * @return string|null
-     */
-    public function getAcctID(): ?string
-    {
-        return $this->acctID;
-    }
-
-    /**
      * @param string|null $acctID
      */
     public function setAcctID(?string $acctID): void
     {
         $this->acctID = $acctID;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getBillAddrCity(): ?string
-    {
-        return $this->billAddrCity;
     }
 
     /**
@@ -321,27 +193,11 @@ class Data3DSJson
     }
 
     /**
-     * @return string|null
-     */
-    public function getBillAddrCountry(): ?string
-    {
-        return $this->billAddrCountry;
-    }
-
-    /**
      * @param string|null $billAddrCountry
      */
     public function setBillAddrCountry(?string $billAddrCountry): void
     {
         $this->billAddrCountry = $billAddrCountry;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getBillAddrLine1(): ?string
-    {
-        return $this->billAddrLine1;
     }
 
     /**
@@ -353,27 +209,11 @@ class Data3DSJson
     }
 
     /**
-     * @return string|null
-     */
-    public function getBillAddrLine2(): ?string
-    {
-        return $this->billAddrLine2;
-    }
-
-    /**
      * @param string|null $billAddrLine2
      */
     public function setBillAddrLine2(?string $billAddrLine2): void
     {
         $this->billAddrLine2 = $billAddrLine2;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getBillAddrLine3(): ?string
-    {
-        return $this->billAddrLine3;
     }
 
     /**
@@ -385,27 +225,11 @@ class Data3DSJson
     }
 
     /**
-     * @return string|null
-     */
-    public function getBillAddrPostCode(): ?string
-    {
-        return $this->billAddrPostCode;
-    }
-
-    /**
      * @param string|null $billAddrPostCode
      */
     public function setBillAddrPostCode(?string $billAddrPostCode): void
     {
         $this->billAddrPostCode = $billAddrPostCode;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getBillAddrState(): ?string
-    {
-        return $this->billAddrState;
     }
 
     /**
@@ -417,27 +241,11 @@ class Data3DSJson
     }
 
     /**
-     * @return string|null
-     */
-    public function getHomePhone(): ?string
-    {
-        return $this->homePhone;
-    }
-
-    /**
      * @param string|null $homePhone
      */
     public function setHomePhone(?string $homePhone): void
     {
         $this->homePhone = $homePhone;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getMobilePhone(): ?string
-    {
-        return $this->mobilePhone;
     }
 
     /**
@@ -449,27 +257,11 @@ class Data3DSJson
     }
 
     /**
-     * @return string|null
-     */
-    public function getShipAddrCity(): ?string
-    {
-        return $this->shipAddrCity;
-    }
-
-    /**
      * @param string|null $shipAddrCity
      */
     public function setShipAddrCity(?string $shipAddrCity): void
     {
         $this->shipAddrCity = $shipAddrCity;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getShipAddrCountry(): ?string
-    {
-        return $this->shipAddrCountry;
     }
 
     /**
@@ -481,27 +273,11 @@ class Data3DSJson
     }
 
     /**
-     * @return string|null
-     */
-    public function getShipAddrLine1(): ?string
-    {
-        return $this->shipAddrLine1;
-    }
-
-    /**
      * @param string|null $shipAddrLine1
      */
     public function setShipAddrLine1(?string $shipAddrLine1): void
     {
         $this->shipAddrLine1 = $shipAddrLine1;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getShipAddrLine2(): ?string
-    {
-        return $this->shipAddrLine2;
     }
 
     /**
@@ -513,27 +289,11 @@ class Data3DSJson
     }
 
     /**
-     * @return string|null
-     */
-    public function getShipAddrLine3(): ?string
-    {
-        return $this->shipAddrLine3;
-    }
-
-    /**
      * @param string|null $shipAddrLine3
      */
     public function setShipAddrLine3(?string $shipAddrLine3): void
     {
         $this->shipAddrLine3 = $shipAddrLine3;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getShipAddrPostCode(): ?string
-    {
-        return $this->shipAddrPostCode;
     }
 
     /**
@@ -545,27 +305,11 @@ class Data3DSJson
     }
 
     /**
-     * @return string|null
-     */
-    public function getShipAddrState(): ?string
-    {
-        return $this->shipAddrState;
-    }
-
-    /**
      * @param string|null $shipAddrState
      */
     public function setShipAddrState(?string $shipAddrState): void
     {
         $this->shipAddrState = $shipAddrState;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getWorkPhone(): ?string
-    {
-        return $this->workPhone;
     }
 
     /**
@@ -577,27 +321,11 @@ class Data3DSJson
     }
 
     /**
-     * @return string|null
-     */
-    public function getDeliveryEmailAddress(): ?string
-    {
-        return $this->deliveryEmailAddress;
-    }
-
-    /**
      * @param string|null $deliveryEmailAddress
      */
     public function setDeliveryEmailAddress(?string $deliveryEmailAddress): void
     {
         $this->deliveryEmailAddress = $deliveryEmailAddress;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getDeliveryTimeframe(): ?string
-    {
-        return $this->deliveryTimeframe;
     }
 
     /**
@@ -609,27 +337,11 @@ class Data3DSJson
     }
 
     /**
-     * @return string|null
-     */
-    public function getPreOrderDate(): ?string
-    {
-        return $this->preOrderDate;
-    }
-
-    /**
      * @param string|null $preOrderDate
      */
     public function setPreOrderDate(?string $preOrderDate): void
     {
         $this->preOrderDate = $preOrderDate;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getPreOrderPurchaseInd(): ?string
-    {
-        return $this->preOrderPurchaseInd;
     }
 
     /**
@@ -639,4 +351,5 @@ class Data3DSJson
     {
         $this->preOrderPurchaseInd = $preOrderPurchaseInd;
     }
+
 }

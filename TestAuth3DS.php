@@ -29,6 +29,8 @@ function buildAuth3DSTest1()
     $dto->setNetwork("98");
     $dto->setShopId(SHOP_ID);
     $dto->setOperatorId("operator");
+    $dto->setMerchantUrl("http://jnfjdshjfhjd.it");
+    $dto->setInPerson("S");
     return $dto;
 }
 

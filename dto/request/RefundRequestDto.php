@@ -63,17 +63,9 @@ class RefundRequestDto extends RequestDto
             "AMOUNT" => $this->amount,
             "CURRENCY" => $this->currency,
             "EXPONENT " => $this->exponent,
-            "OPDESCR "=>$this->opDescr,
-            "OPTIONS "=>$this->options
+            "OPDESCR " => $this->opDescr,
+            "OPTIONS " => $this->options
         );
-    }
-
-    /**
-     * @return string
-     */
-    public function getTransactionId(): string
-    {
-        return $this->transactionId;
     }
 
     /**
@@ -85,27 +77,11 @@ class RefundRequestDto extends RequestDto
     }
 
     /**
-     * @return string
-     */
-    public function getOrderId(): string
-    {
-        return $this->orderId;
-    }
-
-    /**
      * @param string $orderId
      */
     public function setOrderId(string $orderId): void
     {
         $this->orderId = $orderId;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAmount(): string
-    {
-        return $this->amount;
     }
 
     /**
@@ -117,14 +93,6 @@ class RefundRequestDto extends RequestDto
     }
 
     /**
-     * @return string
-     */
-    public function getCurrency(): string
-    {
-        return $this->currency;
-    }
-
-    /**
      * @param string $currency
      */
     public function setCurrency(string $currency): void
@@ -133,50 +101,19 @@ class RefundRequestDto extends RequestDto
     }
 
     /**
-     * @return string
+     * @param string|null $exponent
      */
-    public function getExponent(): string
-    {
-        return $this->exponent;
-    }
-
-    /**
-     * @param string $exponent
-     */
-    public function setExponent(string $exponent): void
+    public function setExponent(?string $exponent): void
     {
         $this->exponent = $exponent;
     }
 
     /**
-     * @return string
+     * @param string|null $opDescr
      */
-    public function getOpDescr(): string
-    {
-        return $this->opDescr;
-    }
-
-    /**
-     * @param string $opDescr
-     */
-    public function setOpDescr(string $opDescr): void
+    public function setOpDescr(?string $opDescr): void
     {
         $this->opDescr = $opDescr;
     }
 
-    /**
-     * @return string
-     */
-    public function getOptions(): string
-    {
-        return $this->options;
-    }
-
-    /**
-     * @param string $options
-     */
-    public function setOptions(string $options): void
-    {
-        $this->options = $options;
-    }
 }

@@ -37,4 +37,44 @@ class PanAliasData
         );
     }
 
+    /**
+     * @return SimpleXMLElement|string|null
+     */
+    public function getPanAlias()
+    {
+        return $this->panAlias;
+    }
+
+    /**
+     * @return SimpleXMLElement|string|null
+     */
+    public function getPanAliasRev()
+    {
+        return $this->panAliasRev;
+    }
+
+    /**
+     * @return SimpleXMLElement|string|null
+     */
+    public function getPanAliasExpDate()
+    {
+        return $this->panAliasExpDate;
+    }
+
+    /**
+     * @return SimpleXMLElement|string|null
+     */
+    public function getPanAliasTail()
+    {
+        return $this->panAliasTail;
+    }
+
+    /**
+     * @return SimpleXMLElement|string|null
+     */
+    public function getMac()
+    {
+        return $this->mac;
+    }
+
 }

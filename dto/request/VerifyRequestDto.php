@@ -50,14 +50,6 @@ class VerifyRequestDto extends RequestDto
     }
 
     /**
-     * @return string
-     */
-    public function getOriginalReqRefNum(): string
-    {
-        return $this->originalReqRefNum;
-    }
-
-    /**
      * @param string $originalReqRefNum
      */
     public function setOriginalReqRefNum(string $originalReqRefNum): void

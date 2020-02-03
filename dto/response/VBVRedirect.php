@@ -28,4 +28,28 @@ class VBVRedirect
         );
     }
 
+    /**
+     * @return SimpleXMLElement|string|null
+     */
+    public function getPaReq()
+    {
+        return $this->paReq;
+    }
+
+    /**
+     * @return SimpleXMLElement|string|null
+     */
+    public function getAcsURL()
+    {
+        return $this->acsURL;
+    }
+
+    /**
+     * @return SimpleXMLElement|string|null
+     */
+    public function getMac()
+    {
+        return $this->mac;
+    }
+
 }

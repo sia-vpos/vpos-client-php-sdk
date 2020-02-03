@@ -46,147 +46,75 @@ class Operation
     }
 
     /**
-     * @return string
+     * @return SimpleXMLElement|string
      */
-    public function getTransactionID(): string
+    public function getTransactionID()
     {
         return $this->transactionID;
     }
 
     /**
-     * @param string $transactionID
+     * @return SimpleXMLElement|string
      */
-    public function setTransactionID(string $transactionID): void
-    {
-        $this->transactionID = $transactionID;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTimestampReq(): string
+    public function getTimestampReq()
     {
         return $this->timestampReq;
     }
 
     /**
-     * @param string $timestampReq
+     * @return SimpleXMLElement|string
      */
-    public function setTimestampReq(string $timestampReq): void
-    {
-        $this->timestampReq = $timestampReq;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTimestampElab(): string
+    public function getTimestampElab()
     {
         return $this->timestampElab;
     }
 
     /**
-     * @param string $timestampElab
+     * @return SimpleXMLElement|string
      */
-    public function setTimestampElab(string $timestampElab): void
-    {
-        $this->timestampElab = $timestampElab;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSrcType(): string
+    public function getSrcType()
     {
         return $this->srcType;
     }
 
     /**
-     * @param string $srcType
+     * @return SimpleXMLElement|string
      */
-    public function setSrcType(string $srcType): void
-    {
-        $this->srcType = $srcType;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAmount(): string
+    public function getAmount()
     {
         return $this->amount;
     }
 
     /**
-     * @param string $amount
+     * @return SimpleXMLElement|string
      */
-    public function setAmount(string $amount): void
-    {
-        $this->amount = $amount;
-    }
-
-    /**
-     * @return string
-     */
-    public function getResult(): string
+    public function getResult()
     {
         return $this->result;
     }
 
     /**
-     * @param string $result
+     * @return SimpleXMLElement|string
      */
-    public function setResult(string $result): void
-    {
-        $this->result = $result;
-    }
-
-    /**
-     * @return string
-     */
-    public function getStatus(): string
+    public function getStatus()
     {
         return $this->status;
     }
 
     /**
-     * @param string $status
+     * @return SimpleXMLElement|string
      */
-    public function setStatus(string $status): void
-    {
-        $this->status = $status;
-    }
-
-    /**
-     * @return string
-     */
-    public function getOpDescr(): string
+    public function getOpDescr()
     {
         return $this->opDescr;
     }
 
     /**
-     * @param string $opDescr
+     * @return SimpleXMLElement|string
      */
-    public function setOpDescr(string $opDescr): void
-    {
-        $this->opDescr = $opDescr;
-    }
-
-    /**
-     * @return string
-     */
-    public function getMac(): string
+    public function getMac()
     {
         return $this->mac;
-    }
-
-    /**
-     * @param string $mac
-     */
-    public function setMac(string $mac): void
-    {
-        $this->mac = $mac;
     }
 
     /**
@@ -197,11 +125,4 @@ class Operation
         return $this->authorization;
     }
 
-    /**
-     * @param Authorization $authorization
-     */
-    public function setAuthorization(Authorization $authorization): void
-    {
-        $this->authorization = $authorization;
-    }
 }

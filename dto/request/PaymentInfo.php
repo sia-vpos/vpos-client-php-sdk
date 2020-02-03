@@ -78,27 +78,11 @@ class PaymentInfo
     }
 
     /**
-     * @return string
-     */
-    public function getAmount(): string
-    {
-        return $this->amount;
-    }
-
-    /**
      * @param string $amount
      */
     public function setAmount(string $amount): void
     {
         $this->amount = $amount;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCurrency(): string
-    {
-        return $this->currency;
     }
 
     /**
@@ -110,27 +94,11 @@ class PaymentInfo
     }
 
     /**
-     * @return string
-     */
-    public function getExponent(): string
-    {
-        return $this->exponent;
-    }
-
-    /**
      * @param string $exponent
      */
     public function setExponent(string $exponent): void
     {
         $this->exponent = $exponent;
-    }
-
-    /**
-     * @return string
-     */
-    public function getOrderId(): string
-    {
-        return $this->orderId;
     }
 
     /**
@@ -142,27 +110,11 @@ class PaymentInfo
     }
 
     /**
-     * @return string
-     */
-    public function getShopId(): string
-    {
-        return $this->shopId;
-    }
-
-    /**
      * @param string $shopId
      */
     public function setShopId(string $shopId): void
     {
         $this->shopId = $shopId;
-    }
-
-    /**
-     * @return string
-     */
-    public function getUrlBack(): string
-    {
-        return $this->urlBack;
     }
 
     /**
@@ -174,27 +126,11 @@ class PaymentInfo
     }
 
     /**
-     * @return string
-     */
-    public function getUrlDone(): string
-    {
-        return $this->urlDone;
-    }
-
-    /**
      * @param string $urlDone
      */
     public function setUrlDone(string $urlDone): void
     {
         $this->urlDone = $urlDone;
-    }
-
-    /**
-     * @return string
-     */
-    public function getUrlMs(): string
-    {
-        return $this->urlMs;
     }
 
     /**
@@ -206,27 +142,11 @@ class PaymentInfo
     }
 
     /**
-     * @return string
-     */
-    public function getAccountingMode(): string
-    {
-        return $this->accountingMode;
-    }
-
-    /**
      * @param string $accountingMode
      */
     public function setAccountingMode(string $accountingMode): void
     {
         $this->accountingMode = $accountingMode;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAuthorMode(): string
-    {
-        return $this->authorMode;
     }
 
     /**
@@ -238,14 +158,6 @@ class PaymentInfo
     }
 
     /**
-     * @return string
-     */
-    public function getMac(): string
-    {
-        return $this->mac;
-    }
-
-    /**
      * @param string $mac
      */
     public function setMac(string $mac): void
@@ -254,353 +166,177 @@ class PaymentInfo
     }
 
     /**
-     * @return string
+     * @param string|null $lang
      */
-    public function getLang(): string
-    {
-        return $this->lang;
-    }
-
-    /**
-     * @param string $lang
-     */
-    public function setLang(string $lang): void
+    public function setLang(?string $lang): void
     {
         $this->lang = $lang;
     }
 
     /**
-     * @return string
+     * @param string|null $shopEmail
      */
-    public function getShopEmail(): string
-    {
-        return $this->shopEmail;
-    }
-
-    /**
-     * @param string $shopEmail
-     */
-    public function setShopEmail(string $shopEmail): void
+    public function setShopEmail(?string $shopEmail): void
     {
         $this->shopEmail = $shopEmail;
     }
 
     /**
-     * @return string
+     * @param string|null $options
      */
-    public function getOptions(): string
-    {
-        return $this->options;
-    }
-
-    /**
-     * @param string $options
-     */
-    public function setOptions(string $options): void
+    public function setOptions(?string $options): void
     {
         $this->options = $options;
     }
 
     /**
-     * @return string
+     * @param string|null $lockcard
      */
-    public function getLockcard(): string
-    {
-        return $this->lockcard;
-    }
-
-    /**
-     * @param string $lockcard
-     */
-    public function setLockcard(string $lockcard): void
+    public function setLockcard(?string $lockcard): void
     {
         $this->lockcard = $lockcard;
     }
 
     /**
-     * @return string
+     * @param string|null $commis
      */
-    public function getCommis(): string
-    {
-        return $this->commis;
-    }
-
-    /**
-     * @param string $commis
-     */
-    public function setCommis(string $commis): void
+    public function setCommis(?string $commis): void
     {
         $this->commis = $commis;
     }
 
     /**
-     * @return string
+     * @param string|null $email
      */
-    public function getEmail(): string
-    {
-        return $this->email;
-    }
-
-    /**
-     * @param string $email
-     */
-    public function setEmail(string $email): void
+    public function setEmail(?string $email): void
     {
         $this->email = $email;
     }
 
     /**
-     * @return string
+     * @param string|null $ordDescr
      */
-    public function getOrdDescr(): string
-    {
-        return $this->ordDescr;
-    }
-
-    /**
-     * @param string $ordDescr
-     */
-    public function setOrdDescr(string $ordDescr): void
+    public function setOrdDescr(?string $ordDescr): void
     {
         $this->ordDescr = $ordDescr;
     }
 
     /**
-     * @return string
+     * @param string|null $vsid
      */
-    public function getVsid(): string
-    {
-        return $this->vsid;
-    }
-
-    /**
-     * @param string $vsid
-     */
-    public function setVsid(string $vsid): void
+    public function setVsid(?string $vsid): void
     {
         $this->vsid = $vsid;
     }
 
     /**
-     * @return string
+     * @param string|null $opDescr
      */
-    public function getOpDescr(): string
-    {
-        return $this->opDescr;
-    }
-
-    /**
-     * @param string $opDescr
-     */
-    public function setOpDescr(string $opDescr): void
+    public function setOpDescr(?string $opDescr): void
     {
         $this->opDescr = $opDescr;
     }
 
     /**
-     * @return string
+     * @param string|null $remainingDuration
      */
-    public function getRemainingDuration(): string
-    {
-        return $this->remainingDuration;
-    }
-
-    /**
-     * @param string $remainingDuration
-     */
-    public function setRemainingDuration(string $remainingDuration): void
+    public function setRemainingDuration(?string $remainingDuration): void
     {
         $this->remainingDuration = $remainingDuration;
     }
 
     /**
-     * @return string
+     * @param string|null $userId
      */
-    public function getUserId(): string
-    {
-        return $this->userId;
-    }
-
-    /**
-     * @param string $userId
-     */
-    public function setUserId(string $userId): void
+    public function setUserId(?string $userId): void
     {
         $this->userId = $userId;
     }
 
     /**
-     * @return string
+     * @param string|null $bpPostepay
      */
-    public function getBpPostepay(): string
-    {
-        return $this->bpPostepay;
-    }
-
-    /**
-     * @param string $bpPostepay
-     */
-    public function setBpPostepay(string $bpPostepay): void
+    public function setBpPostepay(?string $bpPostepay): void
     {
         $this->bpPostepay = $bpPostepay;
     }
 
     /**
-     * @return string
+     * @param string|null $bpCards
      */
-    public function getBpCards(): string
-    {
-        return $this->bpCards;
-    }
-
-    /**
-     * @param string $bpCards
-     */
-    public function setBpCards(string $bpCards): void
+    public function setBpCards(?string $bpCards): void
     {
         $this->bpCards = $bpCards;
     }
 
     /**
-     * @return string
+     * @param string|null $phoneNumber
      */
-    public function getPhoneNumber(): string
-    {
-        return $this->phoneNumber;
-    }
-
-    /**
-     * @param string $phoneNumber
-     */
-    public function setPhoneNumber(string $phoneNumber): void
+    public function setPhoneNumber(?string $phoneNumber): void
     {
         $this->phoneNumber = $phoneNumber;
     }
 
     /**
-     * @return string
+     * @param string|null $causation
      */
-    public function getCausation(): string
-    {
-        return $this->causation;
-    }
-
-    /**
-     * @param string $causation
-     */
-    public function setCausation(string $causation): void
+    public function setCausation(?string $causation): void
     {
         $this->causation = $causation;
     }
 
     /**
-     * @return string
+     * @param string|null $user
      */
-    public function getUser(): string
-    {
-        return $this->user;
-    }
-
-    /**
-     * @param string $user
-     */
-    public function setUser(string $user): void
+    public function setUser(?string $user): void
     {
         $this->user = $user;
     }
 
     /**
-     * @return string
+     * @param string|null $name
      */
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param string $name
-     */
-    public function setName(string $name): void
+    public function setName(?string $name): void
     {
         $this->name = $name;
     }
 
     /**
-     * @return string
+     * @param string|null $surname
      */
-    public function getSurname(): string
-    {
-        return $this->surname;
-    }
-
-    /**
-     * @param string $surname
-     */
-    public function setSurname(string $surname): void
+    public function setSurname(?string $surname): void
     {
         $this->surname = $surname;
     }
 
     /**
-     * @return string
+     * @param string|null $taxId
      */
-    public function getTaxId(): string
-    {
-        return $this->taxId;
-    }
-
-    /**
-     * @param string $taxId
-     */
-    public function setTaxId(string $taxId): void
+    public function setTaxId(?string $taxId): void
     {
         $this->taxId = $taxId;
     }
 
     /**
-     * @return string
+     * @param string|null $productRef
      */
-    public function getProductRef(): string
-    {
-        return $this->productRef;
-    }
-
-    /**
-     * @param string $productRef
-     */
-    public function setProductRef(string $productRef): void
+    public function setProductRef(?string $productRef): void
     {
         $this->productRef = $productRef;
     }
 
     /**
-     * @return string
+     * @param string|null $antiFraud
      */
-    public function getAnitFraud(): string
+    public function setAntiFraud(?string $antiFraud): void
     {
-        return $this->anitFraud;
+        $this->antiFraud = $antiFraud;
     }
 
     /**
-     * @param string $anitFraud
+     * @param Data3DSJson|null $data3DS
      */
-    public function setAnitFraud(string $anitFraud): void
-    {
-        $this->anitFraud = $anitFraud;
-    }
-
-    /**
-     * @return Data3DSJson
-     */
-    public function getData3DS(): Data3DSJson
-    {
-        return $this->data3DS;
-    }
-
-    /**
-     * @param Data3DSJson $data3DS
-     */
-    public function setData3DS(Data3DSJson $data3DS): void
+    public function setData3DS(?Data3DSJson $data3DS): void
     {
         $this->data3DS = $data3DS;
     }

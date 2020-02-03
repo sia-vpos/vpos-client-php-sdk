@@ -57,14 +57,6 @@ class OrderStatusRequestDto extends RequestDto
     }
 
     /**
-     * @return string
-     */
-    public function getOrderId(): string
-    {
-        return $this->orderId;
-    }
-
-    /**
      * @param string $orderId
      */
     public function setOrderId(string $orderId): void
@@ -73,17 +65,9 @@ class OrderStatusRequestDto extends RequestDto
     }
 
     /**
-     * @return string
+     * @param string|null $productRef
      */
-    public function getProductRef(): string
-    {
-        return $this->productRef;
-    }
-
-    /**
-     * @param string $productRef
-     */
-    public function setProductRef(string $productRef): void
+    public function setProductRef(?string $productRef): void
     {
         $this->productRef = $productRef;
     }

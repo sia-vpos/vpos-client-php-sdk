@@ -60,27 +60,11 @@ class ConfirmRequestDto extends RequestDto
     }
 
     /**
-     * @return string
-     */
-    public function getTransactionId(): string
-    {
-        return $this->transactionId;
-    }
-
-    /**
      * @param string $transactionId
      */
     public function setTransactionId(string $transactionId): void
     {
         $this->transactionId = $transactionId;
-    }
-
-    /**
-     * @return string
-     */
-    public function getOrderId(): string
-    {
-        return $this->orderId;
     }
 
     /**
@@ -92,27 +76,11 @@ class ConfirmRequestDto extends RequestDto
     }
 
     /**
-     * @return string
-     */
-    public function getAmount(): string
-    {
-        return $this->amount;
-    }
-
-    /**
      * @param string $amount
      */
     public function setAmount(string $amount): void
     {
         $this->amount = $amount;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCurrency(): string
-    {
-        return $this->currency;
     }
 
     /**
@@ -124,19 +92,19 @@ class ConfirmRequestDto extends RequestDto
     }
 
     /**
-     * @return string
+     * @param string|null $exponent
      */
-    public function getExponent(): string
+    public function setExponent(?string $exponent): void
     {
-        return $this->exponent;
+        $this->exponent = $exponent;
     }
 
     /**
-     * @param string $exponent
+     * @param string|null $opDescr
      */
-    public function setExponent(string $exponent): void
+    public function setOpDescr(?string $opDescr): void
     {
-        $this->exponent = $exponent;
+        $this->opDescr = $opDescr;
     }
 
 }

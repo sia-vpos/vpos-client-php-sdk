@@ -29,6 +29,12 @@ class VPOSClient
     private Encoder $encoder;
     private HTMLGenerator $htmlUtils;
 
+    /**
+     * VPOSClient constructor.
+     * @param string $startKey
+     * @param string $apiKey
+     * @param string $urlWebApi
+     */
     public function __construct(string $startKey, string $apiKey, string $urlWebApi)
     {
         $this->injected = false;
@@ -40,6 +46,10 @@ class VPOSClient
         $this->startKey = $startKey;
     }
 
+    /**
+     * @param string $base64
+     * @param int $delay
+     */
     public function injectHtmlTemplate(string $base64, int $delay): void
     {
         $html = $this->htmlUtils->base64ToHtml($base64, $delay);
@@ -47,6 +57,11 @@ class VPOSClient
         $this->injected = true;
     }
 
+    /**
+     * @param PaymentInfo $info
+     * @param string $urlApos
+     * @return string
+     */
     public function getHtmlPaymentDocument(PaymentInfo $info, string $urlApos): string
     {
         $path = $this->injected ? self::CUSTOM_HTML_FILE_PATH : self::STD_HTML_FILE_PATH;
@@ -58,6 +73,11 @@ class VPOSClient
         return $this->htmlUtils->htmlToBase64($path, $urlApos, $infoMap);
     }
 
+    /**
+     * @param array $values
+     * @param string $receivedMac
+     * @return bool
+     */
     public function verifyUrl(array $values, string $receivedMac): bool
     {
         $macArray = array(

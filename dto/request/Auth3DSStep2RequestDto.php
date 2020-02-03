@@ -59,27 +59,11 @@ class Auth3DSStep2RequestDto extends RequestDto
     }
 
     /**
-     * @return string
-     */
-    public function getOriginalRefReqNum(): string
-    {
-        return $this->originalRefReqNum;
-    }
-
-    /**
      * @param string $originalRefReqNum
      */
     public function setOriginalRefReqNum(string $originalRefReqNum): void
     {
         $this->originalRefReqNum = $originalRefReqNum;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPaRes(): string
-    {
-        return $this->paRes;
     }
 
     /**
@@ -91,18 +75,11 @@ class Auth3DSStep2RequestDto extends RequestDto
     }
 
     /**
-     * @return string
+     * @param string|null $acquirer
      */
-    public function getAcquirer(): string
-    {
-        return $this->acquirer;
-    }
-
-    /**
-     * @param string $acquirer
-     */
-    public function setAcquirer(string $acquirer): void
+    public function setAcquirer(?string $acquirer): void
     {
         $this->acquirer = $acquirer;
     }
+
 }

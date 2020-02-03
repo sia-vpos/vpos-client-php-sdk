@@ -145,27 +145,11 @@ class Auth3DSDto extends RequestDto
     }
 
     /**
-     * @return bool
-     */
-    public function isMasterpass(): bool
-    {
-        return $this->isMasterpass;
-    }
-
-    /**
      * @param bool $isMasterpass
      */
     public function setIsMasterpass(bool $isMasterpass): void
     {
         $this->isMasterpass = $isMasterpass;
-    }
-
-    /**
-     * @return string
-     */
-    public function getOrderId(): string
-    {
-        return $this->orderId;
     }
 
     /**
@@ -177,27 +161,11 @@ class Auth3DSDto extends RequestDto
     }
 
     /**
-     * @return string
-     */
-    public function getPan(): string
-    {
-        return $this->pan;
-    }
-
-    /**
      * @param string $pan
      */
     public function setPan(string $pan): void
     {
         $this->pan = $pan;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCvv2(): string
-    {
-        return $this->cvv2;
     }
 
     /**
@@ -209,27 +177,11 @@ class Auth3DSDto extends RequestDto
     }
 
     /**
-     * @return string
-     */
-    public function getExpDate(): string
-    {
-        return $this->expDate;
-    }
-
-    /**
      * @param string $expDate
      */
     public function setExpDate(string $expDate): void
     {
         $this->expDate = $expDate;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAmount(): string
-    {
-        return $this->amount;
     }
 
     /**
@@ -241,43 +193,11 @@ class Auth3DSDto extends RequestDto
     }
 
     /**
-     * @return string
-     */
-    public function getCurrency(): string
-    {
-        return $this->currency;
-    }
-
-    /**
      * @param string $currency
      */
     public function setCurrency(string $currency): void
     {
         $this->currency = $currency;
-    }
-
-    /**
-     * @return string
-     */
-    public function getExponent(): string
-    {
-        return $this->exponent;
-    }
-
-    /**
-     * @param string $exponent
-     */
-    public function setExponent(string $exponent): void
-    {
-        $this->exponent = $exponent;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAccountingMode(): string
-    {
-        return $this->accountingMode;
     }
 
     /**
@@ -289,14 +209,6 @@ class Auth3DSDto extends RequestDto
     }
 
     /**
-     * @return string
-     */
-    public function getNetwork(): string
-    {
-        return $this->network;
-    }
-
-    /**
      * @param string $network
      */
     public function setNetwork(string $network): void
@@ -305,395 +217,195 @@ class Auth3DSDto extends RequestDto
     }
 
     /**
-     * @return string
+     * @param string|null $exponent
      */
-    public function getEmailCh(): string
+    public function setExponent(?string $exponent): void
     {
-        return $this->emailCh;
+        $this->exponent = $exponent;
     }
 
     /**
-     * @param string $emailCh
+     * @param string|null $emailCh
      */
-    public function setEmailCh(string $emailCh): void
+    public function setEmailCh(?string $emailCh): void
     {
         $this->emailCh = $emailCh;
     }
 
     /**
-     * @return string
+     * @param string|null $userId
      */
-    public function getUserId(): string
-    {
-        return $this->userId;
-    }
-
-    /**
-     * @param string $userId
-     */
-    public function setUserId(string $userId): void
+    public function setUserId(?string $userId): void
     {
         $this->userId = $userId;
     }
 
     /**
-     * @return string
+     * @param string|null $acquirer
      */
-    public function getAcquirer(): string
-    {
-        return $this->acquirer;
-    }
-
-    /**
-     * @param string $acquirer
-     */
-    public function setAcquirer(string $acquirer): void
+    public function setAcquirer(?string $acquirer): void
     {
         $this->acquirer = $acquirer;
     }
 
     /**
-     * @return string
+     * @param string|null $ipAddress
      */
-    public function getIpAddress(): string
-    {
-        return $this->ipAddress;
-    }
-
-    /**
-     * @param string $ipAddress
-     */
-    public function setIpAddress(string $ipAddress): void
+    public function setIpAddress(?string $ipAddress): void
     {
         $this->ipAddress = $ipAddress;
     }
 
     /**
-     * @return string
+     * @param string|null $usrAuthFlag
      */
-    public function getUsrAuthFlag(): string
-    {
-        return $this->usrAuthFlag;
-    }
-
-    /**
-     * @param string $usrAuthFlag
-     */
-    public function setUsrAuthFlag(string $usrAuthFlag): void
+    public function setUsrAuthFlag(?string $usrAuthFlag): void
     {
         $this->usrAuthFlag = $usrAuthFlag;
     }
 
     /**
-     * @return string
+     * @param string|null $opDescr
      */
-    public function getOpDescr(): string
-    {
-        return $this->opDescr;
-    }
-
-    /**
-     * @param string $opDescr
-     */
-    public function setOpDescr(string $opDescr): void
+    public function setOpDescr(?string $opDescr): void
     {
         $this->opDescr = $opDescr;
     }
 
     /**
-     * @return string
+     * @param string|null $antifraud
      */
-    public function getAntifraud(): string
-    {
-        return $this->antifraud;
-    }
-
-    /**
-     * @param string $antifraud
-     */
-    public function setAntifraud(string $antifraud): void
+    public function setAntifraud(?string $antifraud): void
     {
         $this->antifraud = $antifraud;
     }
 
     /**
-     * @return string
+     * @param string|null $productRef
      */
-    public function getProductRef(): string
-    {
-        return $this->productRef;
-    }
-
-    /**
-     * @param string $productRef
-     */
-    public function setProductRef(string $productRef): void
+    public function setProductRef(?string $productRef): void
     {
         $this->productRef = $productRef;
     }
 
     /**
-     * @return string
+     * @param string|null $name
      */
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param string $name
-     */
-    public function setName(string $name): void
+    public function setName(?string $name): void
     {
         $this->name = $name;
     }
 
     /**
-     * @return string
+     * @param string|null $surname
      */
-    public function getSurname(): string
-    {
-        return $this->surname;
-    }
-
-    /**
-     * @param string $surname
-     */
-    public function setSurname(string $surname): void
+    public function setSurname(?string $surname): void
     {
         $this->surname = $surname;
     }
 
     /**
-     * @return string
+     * @param string|null $taxId
      */
-    public function getTaxId(): string
-    {
-        return $this->taxId;
-    }
-
-    /**
-     * @param string $taxId
-     */
-    public function setTaxId(string $taxId): void
+    public function setTaxId(?string $taxId): void
     {
         $this->taxId = $taxId;
     }
 
     /**
-     * @return string
+     * @param string|null $createPanAlias
      */
-    public function getCreatePanAlias(): string
-    {
-        return $this->createPanAlias;
-    }
-
-    /**
-     * @param string $createPanAlias
-     */
-    public function setCreatePanAlias(string $createPanAlias): void
+    public function setCreatePanAlias(?string $createPanAlias): void
     {
         $this->createPanAlias = $createPanAlias;
     }
 
     /**
-     * @return string
+     * @param string|null $inPerson
      */
-    public function getInPerson(): string
-    {
-        return $this->inPerson;
-    }
-
-    /**
-     * @param string $inPerson
-     */
-    public function setInPerson(string $inPerson): void
+    public function setInPerson(?string $inPerson): void
     {
         $this->inPerson = $inPerson;
     }
 
     /**
-     * @return string
+     * @param string|null $merchantUrl
      */
-    public function getMerchantUrl(): string
-    {
-        return $this->merchantUrl;
-    }
-
-    /**
-     * @param string $merchantUrl
-     */
-    public function setMerchantUrl(string $merchantUrl): void
+    public function setMerchantUrl(?string $merchantUrl): void
     {
         $this->merchantUrl = $merchantUrl;
     }
 
     /**
-     * @return string
+     * @param string|null $service
      */
-    public function getService(): string
-    {
-        return $this->service;
-    }
-
-    /**
-     * @param string $service
-     */
-    public function setService(string $service): void
+    public function setService(?string $service): void
     {
         $this->service = $service;
     }
 
     /**
-     * @return string
+     * @param string|null $xId
      */
-    public function getXId(): string
-    {
-        return $this->xId;
-    }
-
-    /**
-     * @param string $xId
-     */
-    public function setXId(string $xId): void
+    public function setXId(?string $xId): void
     {
         $this->xId = $xId;
     }
 
     /**
-     * @return string
+     * @param string|null $cavv
      */
-    public function getCavv(): string
-    {
-        return $this->cavv;
-    }
-
-    /**
-     * @param string $cavv
-     */
-    public function setCavv(string $cavv): void
+    public function setCavv(?string $cavv): void
     {
         $this->cavv = $cavv;
     }
 
     /**
-     * @return string
+     * @param string|null $eci
      */
-    public function getEci(): string
-    {
-        return $this->eci;
-    }
-
-    /**
-     * @param string $eci
-     */
-    public function setEci(string $eci): void
+    public function setEci(?string $eci): void
     {
         $this->eci = $eci;
     }
 
     /**
-     * @return string
+     * @param string|null $ppAuthenticateMethod
      */
-    public function getPpAuthenticateMethod(): string
-    {
-        return $this->ppAuthenticateMethod;
-    }
-
-    /**
-     * @param string $ppAuthenticateMethod
-     */
-    public function setPpAuthenticateMethod(string $ppAuthenticateMethod): void
+    public function setPpAuthenticateMethod(?string $ppAuthenticateMethod): void
     {
         $this->ppAuthenticateMethod = $ppAuthenticateMethod;
     }
 
     /**
-     * @return string
+     * @param string|null $cardEnrollMethod
      */
-    public function getCardEnrollMethod(): string
-    {
-        return $this->cardEnrollMethod;
-    }
-
-    /**
-     * @param string $cardEnrollMethod
-     */
-    public function setCardEnrollMethod(string $cardEnrollMethod): void
+    public function setCardEnrollMethod(?string $cardEnrollMethod): void
     {
         $this->cardEnrollMethod = $cardEnrollMethod;
     }
 
     /**
-     * @return string
+     * @param string|null $paresStatus
      */
-    public function getParesStatus(): string
-    {
-        return $this->paresStatus;
-    }
-
-    /**
-     * @param string $paresStatus
-     */
-    public function setParesStatus(string $paresStatus): void
+    public function setParesStatus(?string $paresStatus): void
     {
         $this->paresStatus = $paresStatus;
     }
 
     /**
-     * @return string
+     * @param string|null $scenRollStatus
      */
-    public function getScenRollStatus(): string
-    {
-        return $this->scenRollStatus;
-    }
-
-    /**
-     * @param string $scenRollStatus
-     */
-    public function setScenRollStatus(string $scenRollStatus): void
+    public function setScenRollStatus(?string $scenRollStatus): void
     {
         $this->scenRollStatus = $scenRollStatus;
     }
 
     /**
-     * @return string
+     * @param string|null $signatureVerification
      */
-    public function getSignatureVerification(): string
-    {
-        return $this->signatureVerification;
-    }
-
-    /**
-     * @param string $signatureVerification
-     */
-    public function setSignatureVerification(string $signatureVerification): void
+    public function setSignatureVerification(?string $signatureVerification): void
     {
         $this->signatureVerification = $signatureVerification;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTimestamp(): string
-    {
-        return $this->timestamp;
-    }
-
-    /**
-     * @param string $timestamp
-     */
-    public function setTimestamp(string $timestamp): void
-    {
-        $this->timestamp = $timestamp;
-    }
-
-    /**
-     * @return string
-     */
-    public function getShopId(): string
-    {
-        return $this->shopId;
     }
 
     /**
@@ -705,14 +417,6 @@ class Auth3DSDto extends RequestDto
     }
 
     /**
-     * @return string
-     */
-    public function getOperatorId(): string
-    {
-        return $this->operatorId;
-    }
-
-    /**
      * @param string $operatorId
      */
     public function setOperatorId(string $operatorId): void
@@ -721,17 +425,25 @@ class Auth3DSDto extends RequestDto
     }
 
     /**
-     * @return string
+     * @param string $reqRefNum
      */
-    public function getOptions(): string
+    public function setReqRefNum(string $reqRefNum): void
     {
-        return $this->options;
+        $this->reqRefNum = $reqRefNum;
     }
 
     /**
-     * @param string $options
+     * @param false|string $timestamp
      */
-    public function setOptions(string $options): void
+    public function setTimestamp($timestamp): void
+    {
+        $this->timestamp = $timestamp;
+    }
+
+    /**
+     * @param string|null $options
+     */
+    public function setOptions(?string $options): void
     {
         $this->options = $options;
     }
