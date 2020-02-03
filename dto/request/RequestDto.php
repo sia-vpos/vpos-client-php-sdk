@@ -1,18 +1,27 @@
 <?php
-require("utils/xml/XMLUtils.php");
+require_once(__DIR__ . "/../../utils/xml/XMLUtils.php");
+require_once(__DIR__ . "/../../utils/Utils.php");
 
 
+/**
+ * Class RequestDto
+ *
+ * Model of a generic VPOS request
+ *
+ * @author Gabriel Raul Marini
+ */
 abstract class RequestDto
 {
+    private const DATE_FORMAT = "Y-m-d\TH:m:s.v";
+    private const REQ_REF_NUM_DATE_FORMAT = "Ymd";
+
     //fixed XML requests' values
     private const RELEASE = "02";
 
     //XML std tags' placeholders
     protected const OPERATION_TAG_VALUE = "[OPERATION]";
-    protected const TIMESTAMP_TAG_VALUE = "[TIMESTAMP]";
-    protected const MAC_TAG_VALUE = "[MAC]";
+    public const MAC_TAG_VALUE = "[MAC]";
     protected const VARIABLE_REQUEST_TAG = "[REQUEST_TAG]";
-    protected const REQ_REF_NUM_TAG_VALUE = "[REQREFNUM]";
 
     //XML tags names
     protected const OPEN_TAG = "BPWXmlRequest";
@@ -62,10 +71,20 @@ abstract class RequestDto
     //request's std attributes
     protected string $shopId;
     protected string $operatorId;
+    protected string $reqRefNum;
+    protected string $timestamp;
     protected ?string $options = null;
 
+    public function __construct()
+    {
+        $time = time();
+        $this->timestamp = date(self::DATE_FORMAT, $time);
+        $this->reqRefNum = date(self::REQ_REF_NUM_DATE_FORMAT, $time);
+        $this->reqRefNum .= Utils::generateRandomDigits();
+    }
+
     /**
-     * @return string
+     * @return string the shop id
      */
     public function getShopId(): string
     {
@@ -112,6 +131,9 @@ abstract class RequestDto
         $this->options = $options;
     }
 
+    /**
+     * @return string std format of BPWXMLRequest initial part
+     */
     protected function getXMLOpening(): string
     {
         $xml = "";
@@ -120,7 +142,7 @@ abstract class RequestDto
 
         XMLUtils::appendOpenTag($xml, self::REQUEST_TAG);
         XMLUtils::appendTag($xml, self::OPERATION_TAG, self::OPERATION_TAG_VALUE);
-        XMLUtils::appendTag($xml, self::TIMESTAMP_TAG, self::TIMESTAMP_TAG_VALUE);
+        XMLUtils::appendTag($xml, self::TIMESTAMP_TAG, $this->timestamp);
         XMLUtils::appendTag($xml, self::MAC_TAG, self::MAC_TAG_VALUE);
         XMLUtils::appendCloseTag($xml, self::REQUEST_TAG);
 
@@ -129,12 +151,15 @@ abstract class RequestDto
         XMLUtils::appendOpenTag($xml, self::HEADER_TAG);
         XMLUtils::appendTag($xml, self::SHOP_ID_TAG, $this->shopId);
         XMLUtils::appendTag($xml, self::OPERATOR_ID_TAG, $this->operatorId);
-        XMLUtils::appendTag($xml, self::REQ_REF_NUM_TAG, self::REQ_REF_NUM_TAG_VALUE);
+        XMLUtils::appendTag($xml, self::REQ_REF_NUM_TAG, $this->reqRefNum);
         XMLUtils::appendCloseTag($xml, self::HEADER_TAG);
 
         return $xml;
     }
 
+    /**
+     * @return string closing a generic BPWXMLRequest
+     */
     protected function getXMLClosing(): string
     {
         $xml = "";
@@ -144,5 +169,15 @@ abstract class RequestDto
         return $xml;
     }
 
+
+    /**
+     * @return string XML representation of the dto instance
+     */
     public abstract function getXML(): string;
+
+    /**
+     * @return array associative array filled with all the request fields used to
+     * calculate the MAC message
+     */
+    public abstract function getMacArray(): array;
 }

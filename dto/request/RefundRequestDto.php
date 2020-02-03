@@ -1,6 +1,13 @@
 <?php
-require("RequestDto.php");
+require_once(__DIR__ . "/RequestDto.php");
 
+/**
+ * Class RefundRequestDto
+ *
+ * Data transfer object used to perform a "payment reversal"
+ *
+ * @author Gabriel Raul Marini
+ */
 class RefundRequestDto extends RequestDto
 {
     private const OPERATION = "REFUND";
@@ -16,11 +23,17 @@ class RefundRequestDto extends RequestDto
     private ?string $exponent = null;
     private ?string $opDescr = null;
 
+    /**
+     * RefundRequestDto constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     public function getXML(): string
     {
         $xml = $this->getXMLOpening();
-        $xml = str_replace(static::VARIABLE_REQUEST_TAG, static::REFUND_TAG, $xml);
-        $xml = str_replace(static::OPERATION_TAG_VALUE, static::OPERATION, $xml);
 
         //start from </Header>
         XMLUtils::appendTag($xml, self::TRANSACTION_ID_TAG, $this->transactionId);
@@ -32,8 +45,27 @@ class RefundRequestDto extends RequestDto
         XMLUtils::appendTag($xml, self::OPTIONS_TAG, $this->options);
 
         $xml .= $this->getXMLClosing();
-        $xml = $xml = str_replace(static::VARIABLE_REQUEST_TAG, static::REFUND_TAG, $xml);
+        $xml = str_replace(static::OPERATION_TAG_VALUE, static::OPERATION, $xml);
+        $xml = str_replace(static::VARIABLE_REQUEST_TAG, static::REFUND_TAG, $xml);
         return $xml;
+    }
+
+    public function getMacArray(): array
+    {
+        return array(
+            "OPERATION" => self::OPERATION,
+            "TIMESTAMP" => $this->timestamp,
+            "SHOPID" => $this->shopId,
+            "OPERATORID" => $this->operatorId,
+            "REQREFNUM" => $this->reqRefNum,
+            "TRANSACTIONID" => $this->transactionId,
+            "ORDERID" => $this->orderId,
+            "AMOUNT" => $this->amount,
+            "CURRENCY" => $this->currency,
+            "EXPONENT " => $this->exponent,
+            "OPDESCR "=>$this->opDescr,
+            "OPTIONS "=>$this->options
+        );
     }
 
     /**

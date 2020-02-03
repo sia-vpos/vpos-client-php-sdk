@@ -1,12 +1,19 @@
 <?php
 
 
+/**
+ * Class AESEncoder
+ *
+ * Utility class used to encrypt Data3DS field in redirect messages
+ *
+ * @author Gabriel Raul Marini
+ */
 class AESEncoder
 {
     private const CIPHER = 'AES-128-CBC';
 
     /**
-     * Encrypt input text by AES-128-CBC algorithm
+     * Encrypt input text using AES-128-CBC algorithm
      *
      * @param string $secretKey 16/24/32 -characters secret password
      * @param string $plainText Text for encryption

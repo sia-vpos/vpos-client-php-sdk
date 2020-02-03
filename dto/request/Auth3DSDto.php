@@ -1,9 +1,16 @@
 <?php
-require("RequestDto.php");
+require_once(__DIR__ . "/RequestDto.php");
 
+/**
+ * Class Auth3DSDto
+ *
+ * Data transfer object used to carry out a "3DS transaction"
+ *
+ * @author Gabriel Raul Marini
+ */
 class Auth3DSDto extends RequestDto
 {
-    private const OPERATION = "AUTHORIZATION3DSSTEP1";
+    public const OPERATION = "AUTHORIZATION3DSSTEP1";
     private const AUTHORIZATION_REQUEST_TAG = "AuthorizationRequest";
 
     //compulsory fields
@@ -43,11 +50,17 @@ class Auth3DSDto extends RequestDto
     private ?string $scenRollStatus = null;
     private ?string $signatureVerification = null;
 
+    /**
+     * Auth3DSDto constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     public function getXML(): string
     {
         $xml = $this->getXMLOpening();
-        $xml = str_replace(static::VARIABLE_REQUEST_TAG, static::AUTHORIZATION_REQUEST_TAG, $xml);
-        $xml = str_replace(static::OPERATION_TAG_VALUE, static::OPERATION, $xml);
 
         //start from </Header>
         if (isset($this->isMasterpass) && $this->isMasterpass) {
@@ -83,8 +96,52 @@ class Auth3DSDto extends RequestDto
         XMLUtils::appendTag($xml, self::SURNAME_TAG, $this->surname);
 
         $xml .= $this->getXMLClosing();
+        $xml = str_replace(static::OPERATION_TAG_VALUE, static::OPERATION, $xml);
         $xml = $xml = str_replace(static::VARIABLE_REQUEST_TAG, static::AUTHORIZATION_REQUEST_TAG, $xml);
         return $xml;
+    }
+
+    public function getMacArray(): array
+    {
+        return array(
+            "OPERATION" => self::OPERATION,
+            "TIMESTAMP" => $this->timestamp,
+            "SHOPID" => $this->shopId,
+            "ORDERID" => $this->orderId,
+            "OPERATORID" => $this->operatorId,
+            "REQREFNUM" => $this->reqRefNum,
+            "PAN" => $this->pan,
+            "CVV2" => $this->cvv2,
+            "EXPDATE" => $this->expDate,
+            "AMOUNT" => $this->amount,
+            "CURRENCY" => $this->currency,
+            "EXPONENT" => $this->exponent,
+            "ACCOUNTINGMODE" => $this->accountingMode,
+            "NETWORK" => $this->network,
+            "EMAILCH" => $this->emailCh,
+            "USERID" => $this->userId,
+            "ACQUIRER" => $this->acquirer,
+            "IPADDRESS" => $this->ipAddress,
+            "OPDESCR" => $this->opDescr,
+            "USRAUTHFLAG" => $this->usrAuthFlag,
+            "OPTIONS" => $this->options,
+            "ANTIFRAUD" => $this->antifraud,
+            "PRODUCTREF" => $this->productRef,
+            "NAME" => $this->name,
+            "SURNAME" => $this->surname,
+            "TAXID" => $this->taxId,
+            "INPERSON" => $this->inPerson,
+            "MERCHANTURL" => $this->merchantUrl,
+            "SERVICE" => $this->service,
+            "XID" => $this->xId,
+            "CAVV" => $this->cavv,
+            "ECI" => $this->eci,
+            "PP_AUTHENTICATEMETHOD" => $this->ppAuthenticateMethod,
+            "PP_CARDENROLLMETHOD" => $this->cardEnrollMethod,
+            "PARESSTATUS" => $this->paresStatus,
+            "SCENROLLSTATUS" => $this->scenRollStatus,
+            "SIGNATUREVERIFICATION" => $this->signatureVerification
+        );
     }
 
     /**
@@ -678,4 +735,5 @@ class Auth3DSDto extends RequestDto
     {
         $this->options = $options;
     }
+
 }

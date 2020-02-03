@@ -30,6 +30,9 @@ class MacCalculator
      */
     public function calculate(string $value, string $key)
     {
-        return hash_hmac($this->algorithm, $value, $key);
+        echo "Calculating MAC on: " . $value . "\n";
+        $mac = hash_hmac($this->algorithm, $value, $key);
+        echo "Calculated MAC: " . $mac . "\n";
+        return $mac;
     }
 }

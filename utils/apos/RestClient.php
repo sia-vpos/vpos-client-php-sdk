@@ -4,6 +4,8 @@
 /**
  * Class RestClient
  *
+ * Simple REST client used in the context of MERCHANT --> VPOS communication
+ *
  * @author Gabriel Raul Marini
  */
 class RestClient
@@ -12,15 +14,16 @@ class RestClient
     private const POST_METHOD = "POST";
 
     /**
-     * Perform a REST call to the selected endpoint
+     * Performs a generic call in POST|PUT
      *
-     * @param $url of the endpoint
-     * @param $data body of the request
-     * @return bool|string
+     * @param string $url of the endpoint
+     * @param string body of the request
+     * @return bool|string outcome of the performed call | response's body
      */
-    public function callAPI($url, $data)
+    public function callAPI(string $url, string $xmlData)
     {
         $method = self::POST_METHOD;
+        $data = "data=" . $xmlData;
         $curl = curl_init();
         switch ($method) {
             case "POST":
@@ -41,14 +44,15 @@ class RestClient
         // OPTIONS:
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-          //  'APIKEY: 111111111111111111111',
-            'Content-Type: '.static::CONTENT_TYPE
+            //  'APIKEY: 111111111111111111111',
+            'Content-Type: ' . static::CONTENT_TYPE
         ));
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         //curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
 
         // EXECUTE:
         $result = curl_exec($curl);
+        echo "Response from VPOS is: \n" . $result;
         if (!$result) {
             echo curl_error($curl);
             die("Connection Failure");
