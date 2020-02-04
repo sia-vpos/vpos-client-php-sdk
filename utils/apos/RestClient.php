@@ -23,6 +23,7 @@ class RestClient
     public function callAPI(string $url, string $xmlData)
     {
         $method = self::POST_METHOD;
+        echo $xmlData;
         $data = "data=" . $xmlData;
         $curl = curl_init();
         switch ($method) {

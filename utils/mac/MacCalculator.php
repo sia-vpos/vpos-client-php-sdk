@@ -4,8 +4,7 @@
 /**
  * Class MacCalculator
  *
- * Perform simple HMAC calculations to support integrity check
- * with mutual authentication
+ * Perform simple HMAC calculations to support integrity check with mutual authentication
  *
  * @author Gabriel Raul Marini
  */
@@ -24,7 +23,7 @@ class MacCalculator
     }
 
     /**
-     * @param string $value on which MAC is calculated
+     * @param string $value input string from which MAC is calculated
      * @param string $key used to encode the string
      * @return string the MAC in HEX format
      */

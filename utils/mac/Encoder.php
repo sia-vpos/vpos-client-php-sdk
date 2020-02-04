@@ -24,7 +24,7 @@ class Encoder
     /**
      * @param array $map of key -> values from which MAC string is built
      * @param string $key used in the HMAC digest calculation
-     * @return the MAC calculated on the associative array
+     * @return the MAC calculated from the input values
      */
     public function getRequestMac(array $map, string $key)
     {
@@ -43,9 +43,9 @@ class Encoder
     }
 
     /**
-     * @param array $values The values from which MAC string is built
+     * @param array $values the values from which MAC string is built
      * @param string $key used to calculate the HMAC digest
-     * @return the MAC calculated on the values list
+     * @return string the MAC calculated on the values list
      */
     public function getResponseMac(array $values, string $key)
     {

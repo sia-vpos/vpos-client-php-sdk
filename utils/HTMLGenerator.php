@@ -19,7 +19,7 @@ class HTMLGenerator
      * Generates the hidden form content for a redirect payment
      *
      * @param array $params to be filled in the hidden form
-     * @return string the concatenated input HTML tags with the input values
+     * @return string the concatenated string with the qualified <input ..> HTML tags
      */
     public function generateParamsHtml(array $params)
     {
@@ -36,9 +36,9 @@ class HTMLGenerator
     }
 
     /**
-     * @param string $base64
-     * @param int $delay
-     * @return false|string|string[]
+     * @param string $base64 encoded html document
+     * @param int $delay milliseconds to wait before redirecting to sia VPOS page
+     * @return string the input template customized with the payment initiation data
      */
     public function base64ToHtml(string $base64, int $delay)
     {
@@ -57,7 +57,7 @@ class HTMLGenerator
      * @param string $filepath std filepath of the html template
      * @param string $urlApos redirect url used to carry out the payment
      * @param array $params payment info
-     * @return string the base
+     * @return string the base64 format of the html document
      */
     public function htmlToBase64(string $filepath, string $urlApos, array $params)
     {

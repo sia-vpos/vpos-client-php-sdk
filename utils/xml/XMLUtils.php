@@ -46,10 +46,10 @@ class XMLUtils
     }
 
     /**
-     * Append a tag with a specific content to the xml parameter
+     * Append a tag with the specified content to the input xml string
      *
      * @param string $xml target string
-     * @param string $tagName name of the requested tag pair
+     * @param string $tagName name of the requested tag
      * @param string|null $content of the tag
      */
     public static function appendTag(string &$xml, string $tagName, ?string $content): void
