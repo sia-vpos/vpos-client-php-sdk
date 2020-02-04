@@ -67,6 +67,9 @@ abstract class RequestDto
     protected const TRANSACTION_ID_TAG = "TransactionID";
     protected const OPDESCR_TAG = "OpDescr";
     protected const OPTIONS_TAG = "Options";
+    protected const TAX_ID_TAG = "TaxID";
+    protected const IN_PERSON_TAG = "InPerson";
+    protected const MERCHANT_URL_TAG = "MerchantURL";
 
     //request's std attributes
     protected string $shopId;
@@ -75,20 +78,15 @@ abstract class RequestDto
     protected string $timestamp;
     protected ?string $options = null;
 
+    /**
+     * RequestDto constructor.
+     */
     public function __construct()
     {
         $time = time();
         $this->timestamp = date(self::DATE_FORMAT, $time);
         $this->reqRefNum = date(self::REQ_REF_NUM_DATE_FORMAT, $time);
         $this->reqRefNum .= Utils::generateRandomDigits();
-    }
-
-    /**
-     * @return string the shop id
-     */
-    public function getShopId(): string
-    {
-        return $this->shopId;
     }
 
     /**
@@ -100,27 +98,11 @@ abstract class RequestDto
     }
 
     /**
-     * @return string
-     */
-    public function getOperatorId(): string
-    {
-        return $this->operatorId;
-    }
-
-    /**
      * @param string $operatorId
      */
     public function setOperatorId(string $operatorId): void
     {
         $this->operatorId = $operatorId;
-    }
-
-    /**
-     * @return string
-     */
-    public function getOptions(): string
-    {
-        return $this->options;
     }
 
     /**

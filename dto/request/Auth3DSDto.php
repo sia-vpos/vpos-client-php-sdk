@@ -94,6 +94,9 @@ class Auth3DSDto extends RequestDto
         XMLUtils::appendTag($xml, self::PRODUCT_REF_TAG, $this->productRef);
         XMLUtils::appendTag($xml, self::NAME_TAG, $this->name);
         XMLUtils::appendTag($xml, self::SURNAME_TAG, $this->surname);
+        XMLUtils::appendTag($xml, self::TAX_ID_TAG, $this->taxId);
+        XMLUtils::appendTag($xml, self::IN_PERSON_TAG, $this->inPerson);
+        XMLUtils::appendTag($xml, self::MERCHANT_URL_TAG, $this->merchantUrl);
 
         $xml .= $this->getXMLClosing();
         $xml = str_replace(static::OPERATION_TAG_VALUE, static::OPERATION, $xml);

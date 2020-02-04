@@ -35,7 +35,7 @@ class Auth3DSStep2RequestDto extends RequestDto
 
         //start from </Header>
         XMLUtils::appendTag($xml, self::ORIGINAL_REQ_REF__NUM_TAG, $this->originalRefReqNum);
-        XMLUtils::appendTag($xml, self::PARES_TAG, $this->paRes);
+        XMLUtils::appendTag($xml, self::PARES_TAG, urlencode($this->paRes));
         XMLUtils::appendTag($xml, self::ACQUIRER_TAG, $this->acquirer);
 
         $xml .= $this->getXMLClosing();

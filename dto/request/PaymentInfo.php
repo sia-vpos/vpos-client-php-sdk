@@ -1,6 +1,13 @@
 <?php
 require_once(__DIR__ . "/Data3DSJson.php");
 
+/**
+ * Class PaymentInfo
+ *
+ * Data model used to build the payment initiation HTML
+ *
+ * @author Gabriel Raul Marini
+ */
 class PaymentInfo
 {
     private string $amount;
