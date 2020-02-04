@@ -12,6 +12,13 @@ require_once(__DIR__ . "/../utils/apos/RestClient.php");
 require_once(__DIR__ . "/../utils/mac/Encoder.php");
 require_once(__DIR__ . "/../utils/HTMLGenerator.php");
 
+/**
+ * Class VPOSClient
+ *
+ * Client used to perform common requests to SIA VPOS.
+ *
+ * @author Gabriel Raul Marini
+ */
 class VPOSClient
 {
     private const CUSTOM_HTML_FILE_PATH = __DIR__ . "/../resources/custom.html";
@@ -47,8 +54,10 @@ class VPOSClient
     }
 
     /**
-     * @param string $base64
-     * @param int $delay
+     * Perform the injection of a custom HTML redirect template
+     *
+     * @param string $base64 encoded string of the HTML custom template
+     * @param int $delay milliseconds to wait before redirecting to SIA VPOS page
      */
     public function injectHtmlTemplate(string $base64, int $delay): void
     {
@@ -58,9 +67,13 @@ class VPOSClient
     }
 
     /**
-     * @param PaymentInfo $info
-     * @param string $urlApos
-     * @return string
+     * Create an HTML document ready to use for payment initiation. The method returns
+     * the custom template with an hidden form containing all the payment parameters in case of
+     * precedent HTML injection. Default template is returned otherwise.
+     *
+     * @param PaymentInfo $info data transfer object containing all the payment parameters
+     * @param string $urlApos VPOS redirect base path
+     * @return string the base64 format of the HTML document
      */
     public function getHtmlPaymentDocument(PaymentInfo $info, string $urlApos): string
     {
@@ -74,9 +87,11 @@ class VPOSClient
     }
 
     /**
-     * @param array $values
-     * @param string $receivedMac
-     * @return bool
+     * Validate the result of a payment initiation verifying the integrity of the data contained in URMLS/URLDONE
+     *
+     * @param array $values parameters received from SIA VPOS
+     * @param string $receivedMac to compare with the calculated one
+     * @return bool true if data is intact, false otherwise
      */
     public function verifyUrl(array $values, string $receivedMac): bool
     {
@@ -116,17 +131,28 @@ class VPOSClient
         return $this->encoder->getRequestMac($macArray, $this->apiKey) === $receivedMac;
     }
 
+    /**
+     * @param Auth3DSDto $dto data transfer object containing all the required parameters to perform the first step of a 3DS authorization
+     * @return Auth3DSResponse the outcome of the operation with the relative additional infos
+     * @throws Exception in case of data corruption
+     */
     public function startAuth3DS(Auth3DSDto $dto): Auth3DSResponse
     {
         $xmlResponse = $this->performCall($dto);
         $response = new Auth3DSResponse($xmlResponse);
         if (!$this->isValidResponseMac($response) || !$this->isValidAuthMac($response->getAuthorization())
-            || !$this->isValidVBVRedirectMac($response->getVbvRedirect()) || !$this->isValidPanAliasData($response->getPanAliasData()))
+            //|| !$this->isValidVBVRedirectMac($response->getVbvRedirect())
+            || !$this->isValidPanAliasData($response->getPanAliasData()))
             throw new Exception(self::MAC_EXCEPTION_MESSAGE);
         return $response;
     }
 
-    public function start3DSAuthStep2Dto(Auth3DSStep2RequestDto $dto): Auth3DSResponseStep2
+    /**
+     * @param Auth3DSStep2RequestDto $dto data transfer object containing all the required parameters to perform the second step of 3DS authorization
+     * @return Auth3DSResponseStep2 the outcome of the operation with the relative additional infos
+     * @throws Exception in case of data corruption
+     */
+    public function start3DSAuthStep2(Auth3DSStep2RequestDto $dto): Auth3DSResponseStep2
     {
         $xmlResponse = $this->performCall($dto);
         $response = new Auth3DSResponseStep2($xmlResponse);
@@ -136,6 +162,11 @@ class VPOSClient
         return $response;
     }
 
+    /**
+     * @param ConfirmRequestDto $dto data transfer object containing all the required parameters to perform a payment confirmation
+     * @return ConfirmResponse the outcome of the operation with the relative additional infos
+     * @throws Exception in case of data corruption
+     */
     public function confirmPayment(ConfirmRequestDto $dto): ConfirmResponse
     {
         $xmlResponse = $this->performCall($dto);
@@ -145,6 +176,11 @@ class VPOSClient
         return $response;
     }
 
+    /**
+     * @param VerifyRequestDto $dto data transfer object containing all the required parameters to perform a verify request
+     * @return VerifyResponse the outcome of the operation with the relative additional infos
+     * @throws Exception in case of data corruption
+     */
     public function verifyRequest(VerifyRequestDto $dto): VerifyResponse
     {
         $xmlResponse = $this->performCall($dto);
@@ -154,6 +190,11 @@ class VPOSClient
         return $response;
     }
 
+    /**
+     * @param RefundRequestDto $dto data transfer object containing all the required parameters to perform a payment refund
+     * @return RefundResponse the outcome of the operation with the relative additional infos
+     * @throws Exception in case of data corruption
+     */
     public function refundPayment(RefundRequestDto $dto): RefundResponse
     {
         $xmlResponse = $this->performCall($dto);
@@ -163,6 +204,11 @@ class VPOSClient
         return $response;
     }
 
+    /**
+     * @param OrderStatusRequestDto $dto data transfer object containing all the required parameters to perform an order status request
+     * @return OrderStatusResponse the outcome of the operation with the relative additional infos
+     * @throws Exception in case of data corruption
+     */
     public function getOrderStatus(OrderStatusRequestDto $dto): OrderStatusResponse
     {
         $xmlResponse = $this->performCall($dto);
