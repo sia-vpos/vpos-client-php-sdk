@@ -199,7 +199,7 @@ class VPOSClient
     {
         $xmlResponse = $this->performCall($dto);
         $response = new RefundResponse($xmlResponse);
-        if (!$this->isValidResponseMac($response) || !$this->isValidOperationMac($response->getOperation()) || !$this->isValidAuthMac($response->getOperation()->getAuthorization()))
+        if (!$this->isValidResponseMac($response) || !$this->isValidOperationMac($response->getOperation()))
             throw new Exception(self::MAC_EXCEPTION_MESSAGE);
         return $response;
     }
@@ -221,6 +221,13 @@ class VPOSClient
             return $response;
         }
         throw new Exception(self::MAC_EXCEPTION_MESSAGE);
+    }
+
+
+    public function getTransactionList(TransactionListRequestDto $dto)
+    {
+        //DRAFT
+        $xmlResponse = $this->performCall($dto);
     }
 
     private function performCall(RequestDto $dto): string

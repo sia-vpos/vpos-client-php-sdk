@@ -23,6 +23,11 @@ class XMLUtils
         return self::OPEN_TAG . self::CLOSE_SLASH . $name . self::CLOSE_TAG;
     }
 
+    private static function getEmptyTag(string $name)
+    {
+        return self::OPEN_TAG . $name . self::CLOSE_SLASH . self::CLOSE_TAG;
+    }
+
     /**
      * Append an open tag to the passed xml string
      *
@@ -55,6 +60,9 @@ class XMLUtils
     public static function appendTag(string &$xml, string $tagName, ?string $content): void
     {
         if (isset($content))
-            $xml .= self::getOpenTag($tagName) . $content . self::getCloseTag($tagName);
+            if (strlen($content) > 0)
+                $xml .= self::getOpenTag($tagName) . $content . self::getCloseTag($tagName);
+            else
+                $xml .= self::getEmptyTag($tagName);
     }
 }

@@ -12,6 +12,7 @@ class RestClient
 {
     private const CONTENT_TYPE = "application/x-www-form-urlencoded";
     private const POST_METHOD = "POST";
+    private const PUT_METHOD = "PUT";
 
     /**
      * Performs a generic call in POST|PUT
@@ -33,7 +34,7 @@ class RestClient
                     curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
                 break;
             case "PUT":
-                curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PUT");
+                curl_setopt($curl, CURLOPT_CUSTOMREQUEST, self::PUT_METHOD);
                 if ($data)
                     curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
                 break;

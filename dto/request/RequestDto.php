@@ -70,6 +70,11 @@ abstract class RequestDto
     protected const TAX_ID_TAG = "TaxID";
     protected const IN_PERSON_TAG = "InPerson";
     protected const MERCHANT_URL_TAG = "MerchantURL";
+    protected const START_DATE_TAG = "StartDate";
+    protected const END_DATE_TAG = "EndDate";
+    protected const START_TIME_TAG = "StartTime";
+    protected const END_TIME_TAG = "EndTime";
+    protected const FILTER_TAG = "Filter";
 
     //request's std attributes
     protected string $shopId;
