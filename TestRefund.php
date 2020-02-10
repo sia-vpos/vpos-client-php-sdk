@@ -15,7 +15,6 @@ $vPOSClient = new VPOSClient(MAC_KEY_REDIRECT, API_RESULT_KEY, URL_WEB_API);
 $response = $vPOSClient->refundPayment(buildRefundDto());
 var_dump($response);
 
-
 function buildRefundDto()
 {
     $dto = new RefundRequestDto();

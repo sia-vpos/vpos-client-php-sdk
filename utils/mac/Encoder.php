@@ -24,7 +24,7 @@ class Encoder
     /**
      * @param array $map of key -> values from which MAC string is built
      * @param string $key used in the HMAC digest calculation
-     * @return the MAC calculated from the input values
+     * @return string the MAC calculated from the input values
      */
     public function getRequestMac(array $map, string $key)
     {
@@ -52,7 +52,7 @@ class Encoder
         $macString = "";
         foreach ($values as $value) {
             if (isset($value) && strlen($value) > 0) {
-                $macString .= $value;
+                $macString .= trim($value);
                 $macString .= "&";
             }
         }
