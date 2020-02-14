@@ -36,7 +36,7 @@ class Authorization
         $this->authorizationType = $authorization->AuthorizationType;
         $this->transactionID = $authorization->TransactionID;
         $this->network = $authorization->Network;
-        $this->orderID = $authorization->OrderID;
+        $this->orderID = $authorization->OrderId;
         $this->transactionAmount = $authorization->TransactionAmount;
         $this->authorizedAmount = $authorization->AuthorizedAmount;
         $this->currency = $authorization->Currency;

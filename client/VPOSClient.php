@@ -223,11 +223,29 @@ class VPOSClient
         throw new Exception(self::MAC_EXCEPTION_MESSAGE);
     }
 
-
-    public function getTransactionList(TransactionListRequestDto $dto)
+    public function setProxy(string $proxyName, int $port)
     {
-        //DRAFT
-        $xmlResponse = $this->performCall($dto);
+        $this->restClient->setProxy($proxyName, $port);
+    }
+
+    public function setProxyWithAuth(string $proxyName, int $port, string $user, string $password)
+    {
+        $this->restClient->setProxyWithAuth($proxyName, $port, $user, $password);
+    }
+
+    public function setBasicAuth(string $user, string $password)
+    {
+        $this->restClient->setBasicAuth($user, $password);
+    }
+
+    public function disableProxy()
+    {
+        $this->restClient->disableProxy();
+    }
+
+    public function disableBasicAuth()
+    {
+        $this->restClient->disableBasicAuth();
     }
 
     private function performCall(RequestDto $dto): string

@@ -46,7 +46,7 @@ abstract class RequestDto
     protected const MASTERPASS_DATA_TAG = "MasterpassData";
     protected const PP_AUTHENTICATE_METHOD_TAG = "PP_AuthenticateMethod";
     protected const PP_CARD_ENROLL_METHOD_TAG = "PP_CardEnrollMethod";
-    protected const ORDER_ID_TAG = "OrderID";
+    protected const ORDER_ID_TAG = "OrderId";
     protected const PAN_TAG = "Pan";
     protected const CVV2_TAG = "CVV2";
     protected const EXPDATE_TAG = "ExpDate";

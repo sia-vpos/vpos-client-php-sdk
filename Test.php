@@ -4,12 +4,9 @@ require("utils/mac/AlgorithmEnum.php");
 require("utils/HTMLGenerator.php");
 require("utils/encryption/AESEncoder.php");
 require("utils/Utils.php");
-require("utils/xml/XMLParser.php");
 require("utils/apos/RestClient.php");
-require("dto/Auth3DSDto.php");
-require("dto/Auth3DSStep2RequestDto.php");
 require("client/VPOSClient.php");
-require("dto/Data3DSJson.php");
+
 
 
 $macCalculator = new MacCalculator(AlgorithmEnum::SHA_256);
@@ -19,7 +16,7 @@ $htmlGenerator = new HTMLGenerator();
 //echo($htmlGenerator->generateParamsHtml(array("ORDERID" => "45646", "OPERATORID" => "mkdsm")));
 //echo ($htmlGenerator->base64ToHtml("PGh0bWw+PGJvZHk+PC9ib2R5PjwvaHRtbD4K", 500));
 //echo $htmlGenerator->htmlToBase64("null", array("ORDERID"=>"12345678"));
-//echo AESEncoder::encrypt("aaaaaaaaaaaaaaaa", "ciao");
+echo AESEncoder::encrypt("aaaaaaaaaaaaaaaa", "ciao");
 //echo Utils::generateRandomDigits();
 //echo $macCalculator->calculate("OPERATION=AUTHORIZATION3DSSTEP1&TIMESTAMP=2020-01-27T15:01:56.000&SHOPID=129281292800109&ORDERID=413999151994&OPERATORID=operator&REQREFNUM=20200127471727070197783123084621&PAN=0000409500729966732&CVV2=111&EXPDATE=2112&AMOUNT=2000&CURRENCY=978&ACCOUNTINGMODE=D&NETWORK=98", "E-vmE-GHXmx73-Lfg24LztZ-7-yCyVsKn4QXphL5qzf-Kr-Cf-JWpZwZgaZRA5dR9V677xL4uCbc-Ce--8h2-tdrSu--QKjF-nZh");
 

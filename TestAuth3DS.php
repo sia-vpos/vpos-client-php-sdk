@@ -11,6 +11,7 @@ const URL_WEB_API = "https://atpostest.ssb.it/atpos/apibo/apiBOXML.app";
 
 
 $vPOSClient = new VPOSClient(MAC_KEY_REDIRECT, API_RESULT_KEY, URL_WEB_API);
+$vPOSClient->setProxy("proxy-dr.reply.it", 8080);
 $response = $vPOSClient->startAuth3DS(buildAuth3DSTest1());
 var_dump($response);
 

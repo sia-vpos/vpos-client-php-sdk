@@ -14,6 +14,25 @@ class RestClient
     private const POST_METHOD = "POST";
     private const PUT_METHOD = "PUT";
 
+    private bool $basicAuth;
+    private bool $ssl;
+    private bool $proxy;
+
+    private int $proxyPort;
+    private string $proxyName;
+    private string $proxyUser;
+    private string $proxyPPP;
+    private string $basicAuthUser;
+    private string $basicAuthPPP;
+
+
+    public function __construct()
+    {
+        $this->basicAuth = false;
+        $this->ssl = false;
+        $this->proxy = false;
+    }
+
     /**
      * Performs a generic call in POST|PUT
      *
@@ -46,11 +65,10 @@ class RestClient
         // OPTIONS:
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-            //  'APIKEY: 111111111111111111111',
             'Content-Type: ' . static::CONTENT_TYPE
         ));
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        //curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+
 
         // EXECUTE:
         $result = curl_exec($curl);
@@ -61,6 +79,52 @@ class RestClient
         }
         curl_close($curl);
         return $result;
+    }
+
+    private function curlOptions($curl)
+    {
+        if ($this->proxy) {
+            curl_setopt($curl, CURLOPT_PROXY, $this->proxyName . ":" . $this->proxyPort);
+            if (isset($this->proxyUser) && isset($this->proxyPPP))
+                curl_setopt($curl, CURLOPT_PROXYUSERPWD, trim($this->proxyUser) . ":" . trim($this->proxyPPP));
+        }
+        if ($this->basicAuth) {
+            curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+            curl_setopt($curl, CURLOPT_USERPWD, trim($this->basicAuthUser) . ":" . trim($this->basicAuthPPP));
+        }
+    }
+
+    public function setBasicAuth(string $user, string $password)
+    {
+        $this->basicAuth = true;
+        $this->basicAuthUser = $user;
+        $this->basicAuthPPP = $password;
+    }
+
+    public function setProxy(string $proxyName, int $proxyPort)
+    {
+        $this->proxy = true;
+        $this->proxyName = $proxyName;
+        $this->proxyPort = $proxyPort;
+    }
+
+    public function setProxyWithAuth(string $proxyName, int $proxyPort, string $proxyUser, string $proxyPw)
+    {
+        $this->proxy = true;
+        $this->proxyName = $proxyName;
+        $this->proxyPort = $proxyPort;
+        $this->proxyUser = $proxyUser;
+        $this->proxyPPP = $proxyPw;
+    }
+
+    public function disableProxy()
+    {
+        $this->proxy = false;
+    }
+
+    public function disableBasicAuth()
+    {
+        $this->basicAuth = false;
     }
 
 }
