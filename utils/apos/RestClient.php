@@ -68,7 +68,7 @@ class RestClient
             'Content-Type: ' . static::CONTENT_TYPE
         ));
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-
+        $this->setCurlOptions($curl);
 
         // EXECUTE:
         $result = curl_exec($curl);
@@ -81,7 +81,7 @@ class RestClient
         return $result;
     }
 
-    private function curlOptions($curl)
+    private function setCurlOptions($curl)
     {
         if ($this->proxy) {
             curl_setopt($curl, CURLOPT_PROXY, $this->proxyName . ":" . $this->proxyPort);
