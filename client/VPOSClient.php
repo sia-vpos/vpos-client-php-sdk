@@ -1,12 +1,12 @@
 <?php
-require_once(__DIR__ . "/../dto/request/Auth3DSDto.php");
-require_once(__DIR__ . "/../dto/request/Auth3DSStep2RequestDto.php");
-require_once(__DIR__ . "/../dto/request/RefundRequestDto.php");
-require_once(__DIR__ . "/../dto/request/ConfirmRequestDto.php");
-require_once(__DIR__ . "/../dto/request/OrderStatusRequestDto.php");
-require_once(__DIR__ . "/../dto/request/VerifyRequestDto.php");
-require_once(__DIR__ . "/../dto/response/Auth3DSResponse.php");
-require_once(__DIR__ . "/../dto/response/Verify.php");
+require_once(__DIR__ . "/../models/request/Auth3DSDto.php");
+require_once(__DIR__ . "/../models/request/Auth3DSStep2RequestDto.php");
+require_once(__DIR__ . "/../models/request/RefundRequestDto.php");
+require_once(__DIR__ . "/../models/request/ConfirmRequestDto.php");
+require_once(__DIR__ . "/../models/request/OrderStatusRequestDto.php");
+require_once(__DIR__ . "/../models/request/VerifyRequestDto.php");
+require_once(__DIR__ . "/../models/response/Auth3DSResponse.php");
+require_once(__DIR__ . "/../models/response/Verify.php");
 
 require_once(__DIR__ . "/../utils/apos/RestClient.php");
 require_once(__DIR__ . "/../utils/mac/Encoder.php");
@@ -16,8 +16,6 @@ require_once(__DIR__ . "/../utils/HTMLGenerator.php");
  * Class VPOSClient
  *
  * Client used to perform common requests to SIA VPOS.
- *
- * @author Gabriel Raul Marini
  */
 class VPOSClient
 {

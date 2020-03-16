@@ -1,6 +1,6 @@
 <?php
 require("utils/Utils.php");
-require("dto/request/ConfirmRequestDto.php");
+require("models/request/ConfirmRequestDto.php");
 require("client/VPOSClient.php");
 
 const SHOP_ID = "129281292800109";

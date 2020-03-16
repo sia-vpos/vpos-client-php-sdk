@@ -1,7 +1,7 @@
 <?php
 require("utils/Utils.php");
-require("dto/request/RefundRequestDto.php");
-require("dto/response/RefundResponse.php");
+require("models/request/RefundRequestDto.php");
+require("models/response/RefundResponse.php");
 require("client/VPOSClient.php");
 
 const SHOP_ID = "129281292800109";

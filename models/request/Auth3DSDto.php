@@ -5,8 +5,6 @@ require_once(__DIR__ . "/RequestDto.php");
  * Class Auth3DSDto
  *
  * Data transfer object used to carry out a "3DS transaction"
- *
- * @author Gabriel Raul Marini
  */
 class Auth3DSDto extends RequestDto
 {

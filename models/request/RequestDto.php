@@ -158,7 +158,7 @@ abstract class RequestDto
 
 
     /**
-     * @return string XML representation of the dto instance
+     * @return string XML representation of the models instance
      */
     public abstract function getXML(): string;
 

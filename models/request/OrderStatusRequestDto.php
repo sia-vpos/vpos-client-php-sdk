@@ -7,7 +7,6 @@ require_once(__DIR__ . "/RequestDto.php");
  *
  * Data transfer object of an "order status" request
  *
- * @author Gabriel Raul Marini
  */
 class OrderStatusRequestDto extends RequestDto
 {

@@ -1,7 +1,7 @@
 <?php
 require("utils/Utils.php");
-require("dto/request/OrderStatusRequestDto.php");
-require("dto/response/OrderStatusResponse.php");
+require("models/request/OrderStatusRequestDto.php");
+require("models/response/OrderStatusResponse.php");
 require("client/VPOSClient.php");
 
 const SHOP_ID = "129281292800109";

@@ -6,7 +6,6 @@ require_once(__DIR__ . "/RequestDto.php");
  *
  * Data transfer object used to perform a "verify transaction" operation
  *
- * @author Gabriel Raul Marini
  */
 class VerifyRequestDto extends RequestDto
 {

@@ -6,7 +6,6 @@ require_once(__DIR__ . "/RequestDto.php");
  *
  * Data transfer object used to perform a "payment reversal"
  *
- * @author Gabriel Raul Marini
  */
 class RefundRequestDto extends RequestDto
 {

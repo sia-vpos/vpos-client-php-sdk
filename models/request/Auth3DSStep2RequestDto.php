@@ -6,8 +6,6 @@ require_once(__DIR__ . "/RequestDto.php");
  * Class Auth3DSStep2RequestDto
  *
  * Data transfer object used to perform the second step of a "3DS authorization"
- *
- * @author Gabriel Raul Marini
  */
 class Auth3DSStep2RequestDto extends RequestDto
 {

@@ -1,6 +1,6 @@
 <?php
 require("client/VPOSClient.php");
-require("dto/PaymentInfo.php");
+require("models/PaymentInfo.php");
 require_once("utils/Utils.php");
 
 const SHOP_ID = "129281292800109";
