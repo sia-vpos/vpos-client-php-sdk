@@ -4,13 +4,13 @@ require_once(__DIR__ . "/../../utils/Utils.php");
 
 
 /**
- * Class RequestDto
+ * Class Request
  *
  * Model of a generic VPOS request
  *
  * @author Gabriel Raul Marini
  */
-abstract class RequestDto
+abstract class Request
 {
     private const DATE_FORMAT = "Y-m-d\TH:m:s.v";
     private const REQ_REF_NUM_DATE_FORMAT = "Ymd";
@@ -75,6 +75,20 @@ abstract class RequestDto
     protected const START_TIME_TAG = "StartTime";
     protected const END_TIME_TAG = "EndTime";
     protected const FILTER_TAG = "Filter";
+    protected const CREATE_PAN_ALIAS_TAG = "CreatePanAlias";
+    protected const NAME_CH_TAG = "NameCH";
+    protected const IP_ADDRESS_TAG = "IpAddress";
+    protected const USR_AUTH_FLAG_TAG = "UsrAuthFlag";
+    protected const ANTIFRAUD_TAG = "Antifraud";
+    protected const THREEDS_DATA_TAG = "ThreeDSData";
+    protected const NOTIF_URL_TAG = "NotifUrl";
+    protected const CHALLENGE_WIN_SIZE_TAG = "ChallengeWinsize";
+    protected const CPROF_TAG = "CPROF";
+    protected const THREEDS_MTD_NOTIF_URL = "ThreeDSMtdNotifUrl";
+    protected const THREEDS_MTD_COMPL_IND_TAG = "ThreeDsMtdComplInd";
+    protected const THREEDS_TRANS_ID_TAG = "ThreeDsTransID";
+
+
 
     //request's std attributes
     protected string $shopId;
@@ -84,7 +98,7 @@ abstract class RequestDto
     protected ?string $options = null;
 
     /**
-     * RequestDto constructor.
+     * Request constructor.
      */
     public function __construct()
     {

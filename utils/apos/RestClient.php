@@ -15,7 +15,6 @@ class RestClient
     private const PUT_METHOD = "PUT";
 
     private bool $basicAuth;
-    private bool $ssl;
     private bool $proxy;
 
     private int $proxyPort;
@@ -29,7 +28,6 @@ class RestClient
     public function __construct()
     {
         $this->basicAuth = false;
-        $this->ssl = false;
         $this->proxy = false;
     }
 

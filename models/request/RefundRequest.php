@@ -1,13 +1,13 @@
 <?php
-require_once(__DIR__ . "/RequestDto.php");
+require_once(__DIR__ . "/Request.php");
 
 /**
- * Class RefundRequestDto
+ * Class RefundRequest
  *
  * Data transfer object used to perform a "payment reversal"
  *
  */
-class RefundRequestDto extends RequestDto
+class RefundRequest extends Request
 {
     private const OPERATION = "REFUND";
     private const REFUND_TAG = "Refund";
@@ -23,7 +23,7 @@ class RefundRequestDto extends RequestDto
     private ?string $opDescr = null;
 
     /**
-     * RefundRequestDto constructor.
+     * RefundRequest constructor.
      */
     public function __construct()
     {

@@ -3,14 +3,14 @@ require_once(__DIR__ . "/Response.php");
 require_once(__DIR__ . "/Operation.php");
 
 /**
- * Class ConfirmResponse
+ * Class CaptureResponse
  */
-class ConfirmResponse extends Response
+class CaptureResponse extends Response
 {
     private ?Operation $operation = null;
 
     /**
-     * ConfirmResponse constructor.
+     * CaptureResponse constructor.
      * @param string $xml representation of the object
      */
     public function __construct(string $xml)

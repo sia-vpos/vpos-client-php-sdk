@@ -1,16 +1,17 @@
 <?php
-require_once(__DIR__ . "/../models/request/Auth3DSDto.php");
-require_once(__DIR__ . "/../models/request/Auth3DSStep2RequestDto.php");
-require_once(__DIR__ . "/../models/request/RefundRequestDto.php");
-require_once(__DIR__ . "/../models/request/ConfirmRequestDto.php");
-require_once(__DIR__ . "/../models/request/OrderStatusRequestDto.php");
-require_once(__DIR__ . "/../models/request/VerifyRequestDto.php");
-require_once(__DIR__ . "/../models/response/Auth3DSResponse.php");
-require_once(__DIR__ . "/../models/response/Verify.php");
+require_once(__DIR__ . "/../models/request/RefundRequest.php");
+require_once(__DIR__ . "/../models/request/CaptureRequest.php");
+require_once(__DIR__ . "/../models/request/OrderStatusRequest.php");
+require_once(__DIR__ . "/../models/response/Auth3DS2Step0Response.php");
+require_once(__DIR__ . "/../models/response/Auth3DS2Step1Response.php");
+require_once(__DIR__ . "/../models/response/Auth3DS2Step2Response.php");
+require_once(__DIR__ . "/../models/response/Authorization.php");
+
 
 require_once(__DIR__ . "/../utils/apos/RestClient.php");
 require_once(__DIR__ . "/../utils/mac/Encoder.php");
 require_once(__DIR__ . "/../utils/HTMLGenerator.php");
+require_once (__DIR__ . "/./ClientConfig.php");
 
 /**
  * Class VPOSClient
@@ -19,16 +20,14 @@ require_once(__DIR__ . "/../utils/HTMLGenerator.php");
  */
 class VPOSClient
 {
-    private const CUSTOM_HTML_FILE_PATH = __DIR__ . "/../resources/custom.html";
-    private const STD_HTML_FILE_PATH = __DIR__ . "/../resources/default.html";
-
     private const MAC_NEUTRAL_VALUE = "NULL";
     private const MAC_EXCEPTION_MESSAGE = "Response MAC is not valid! Possible data corruption!";
 
+    private string $shopID;
     private string $startKey;
     private string $apiKey;
+    private string $redirectUrl;
     private string $urlWebApi;
-    private bool $injected;
 
     private RestClient $restClient;
     private Encoder $encoder;
@@ -36,32 +35,18 @@ class VPOSClient
 
     /**
      * VPOSClient constructor.
-     * @param string $startKey
-     * @param string $apiKey
-     * @param string $urlWebApi
-     */
-    public function __construct(string $startKey, string $apiKey, string $urlWebApi)
+     * @param ClientConfig $startKey
+ */
+    public function __construct(ClientConfig $config)
     {
-        $this->injected = false;
         $this->restClient = new RestClient();
         $this->encoder = new Encoder();
         $this->htmlUtils = new HTMLGenerator();
-        $this->apiKey = $apiKey;
-        $this->urlWebApi = $urlWebApi;
-        $this->startKey = $startKey;
-    }
-
-    /**
-     * Perform the injection of a custom HTML redirect template
-     *
-     * @param string $base64 encoded string of the HTML custom template
-     * @param int $delay milliseconds to wait before redirecting to SIA VPOS page
-     */
-    public function injectHtmlTemplate(string $base64, int $delay): void
-    {
-        $html = $this->htmlUtils->base64ToHtml($base64, $delay);
-        file_put_contents(self::CUSTOM_HTML_FILE_PATH, $html);
-        $this->injected = true;
+        $this->shopID = $config->shopID;
+        $this->apiKey = $config->apiKey;
+        $this->redirectUrl = $config->redirectUrl;
+        $this->urlWebApi = $config->urlWebApi;
+        $this->startKey = $config->startKey;
     }
 
     /**
@@ -71,18 +56,23 @@ class VPOSClient
      *
      * @param PaymentInfo $info data transfer object containing all the payment parameters
      * @param string $urlApos VPOS redirect base path
-     * @return string the base64 format of the HTML document
+     * @return string the HTML document fragment
      */
-    public function getHtmlPaymentDocument(PaymentInfo $info, string $urlApos): string
+    public function BuildHtmlPaymentFragment(PaymentInfo $info): string
     {
-        $path = $this->injected ? self::CUSTOM_HTML_FILE_PATH : self::STD_HTML_FILE_PATH;
+        $info->setShopId($this->shopID);
         $infoMap = $info->getMacArray();
         if (isset($infoMap["3DSDATA"]))
-            $infoMap["3DSDATA"] = AESEncoder::encrypt($this->apiKey, $infoMap["3DSDATA"]->__toString());
+            $infoMap["3DSDATA"] = urlencode(AESEncoder::encrypt($this->apiKey, $infoMap["3DSDATA"]));
         $infoMap["MAC"] = $this->encoder->getRequestMac($infoMap, $this->startKey);
         $infoMap["URLBACK"] = $info->getUrlBack();
-        return $this->htmlUtils->htmlToBase64($path, $urlApos, $infoMap);
+        if(isset($infoMap["TOKEN"])){
+            return $this->htmlUtils->htmlOutput($this->redirectUrl, $infoMap, true);
+        }
+        return $this->htmlUtils->htmlOutput($this->redirectUrl, $infoMap);
+
     }
+
 
     /**
      * Validate the result of a payment initiation verifying the integrity of the data contained in URMLS/URLDONE
@@ -91,7 +81,7 @@ class VPOSClient
      * @param string $receivedMac to compare with the calculated one
      * @return bool true if data is intact, false otherwise
      */
-    public function verifyUrl(array $values, string $receivedMac): bool
+    public function verifyMAC(array $values, string $receivedMac): bool
     {
         $macArray = array(
             "ORDERID" => $values["ORDERID"],
@@ -129,72 +119,95 @@ class VPOSClient
         return $this->encoder->getRequestMac($macArray, $this->apiKey) === $receivedMac;
     }
 
+
     /**
-     * @param Auth3DSDto $dto data transfer object containing all the required parameters to perform the first step of a 3DS authorization
-     * @return Auth3DSResponse the outcome of the operation with the relative additional infos
+     * @param Authorize $dto data transfer object containing all the required parameters to perform the initial step of a 3DS2 authorization
+     * @return AuthorizeResponse the outcome of the operation with the relative additional infos
      * @throws Exception in case of data corruption
      */
-    public function startAuth3DS(Auth3DSDto $dto): Auth3DSResponse
+    public function startAuthorize(Authorize $dto): AuthorizeResponse
     {
+        $dto->setShopId($this->shopID);
         $xmlResponse = $this->performCall($dto);
-        $response = new Auth3DSResponse($xmlResponse);
-        if (!$this->isValidResponseMac($response) || !$this->isValidAuthMac($response->getAuthorization())
-            //|| !$this->isValidVBVRedirectMac($response->getVbvRedirect())
-            || !$this->isValidPanAliasData($response->getPanAliasData()))
+        $response = new AuthorizeResponse($xmlResponse);
+        if (!$this->isValidResponseMac($response) || !$this->isValidAuthMac($response->getAuthorization()) || !$this->isValidPanAliasData($response->getPanAliasData()))
+            throw new Exception(self::MAC_EXCEPTION_MESSAGE);
+        return $response;
+    }
+
+
+    /**
+     * @param Auth3DS2Step0 $dto data transfer object containing all the required parameters to perform the initial step of a 3DS2 authorization
+     * @return Auth3DS2Step0Response the outcome of the operation with the relative additional infos
+     * @throws Exception in case of data corruption
+     */
+    public function start3DS2Step0(Auth3DS2Step0 $dto): Auth3DS2Step0Response
+    {
+        $dto->setShopId($this->shopID);
+        $dto->setThreeDSData(urlencode(AESEncoder::encrypt($this->apiKey, $dto->getThreeDSData())));
+        $xmlResponse = $this->performCall($dto);
+        $response = new Auth3DS2Step0Response($xmlResponse);
+        if (!$this->isValidResponseMac($response) || !$this->isValidAuthMac($response->getAuthorization())|| !$this->isValidThreeDSMethod($response->getThreeDsMethod())
+            || !$this->isValidThreeDSChallenge($response->getThreeDSChallenge()) || !$this->isValidPanAliasData($response->getPanAliasData()))
             throw new Exception(self::MAC_EXCEPTION_MESSAGE);
         return $response;
     }
 
     /**
-     * @param Auth3DSStep2RequestDto $dto data transfer object containing all the required parameters to perform the second step of 3DS authorization
-     * @return Auth3DSResponseStep2 the outcome of the operation with the relative additional infos
+     * @param Auth3DS2Step1 $dto data transfer object containing all the required parameters to perform the following step of a 3DS2 authorization
+     * @return Auth3DS2Step1Response the outcome of the operation with the relative additional infos
      * @throws Exception in case of data corruption
      */
-    public function start3DSAuthStep2(Auth3DSStep2RequestDto $dto): Auth3DSResponseStep2
+    public function start3DS2Step1(Auth3DS2Step1 $dto): Auth3DS2Step1Response
     {
+        $dto->setShopId($this->shopID);
         $xmlResponse = $this->performCall($dto);
-        $response = new Auth3DSResponseStep2($xmlResponse);
-        if (!$this->isValidResponseMac($response) || !$this->isValidAuthMac($response->getAuthorization())
-            || !$this->isValidPanAliasData($response->getPanAliasData()))
+        $response = new Auth3DS2Step1Response($xmlResponse);
+        if (!$this->isValidResponseMac($response) || !$this->isValidAuthMac($response->getAuthorization())||
+            !$this->isValidThreeDSChallenge($response->getThreeDSChallenge()) || !$this->isValidPanAliasData($response->getPanAliasData()))
             throw new Exception(self::MAC_EXCEPTION_MESSAGE);
         return $response;
     }
 
     /**
-     * @param ConfirmRequestDto $dto data transfer object containing all the required parameters to perform a payment confirmation
-     * @return ConfirmResponse the outcome of the operation with the relative additional infos
+     * @param Auth3DS2Step2 $dto data transfer object containing all the required parameters to perform the last step of a 3DS2 authorization
+     * @return Auth3DS2Step2Response the outcome of the operation with the relative additional infos
      * @throws Exception in case of data corruption
      */
-    public function confirmPayment(ConfirmRequestDto $dto): ConfirmResponse
+    public function start3DS2Step2(Auth3DS2Step2 $dto): Auth3DS2Step2Response
     {
+        $dto->setShopId($this->shopID);
         $xmlResponse = $this->performCall($dto);
-        $response = new ConfirmResponse($xmlResponse);
+        $response = new Auth3DS2Step2Response($xmlResponse);
+        if (!$this->isValidResponseMac($response) || !$this->isValidAuthMac($response->getAuthorization())|| !$this->isValidPanAliasData($response->getPanAliasData()))
+            throw new Exception(self::MAC_EXCEPTION_MESSAGE);
+        return $response;
+    }
+
+    /**
+     * @param CaptureRequest $dto data transfer object containing all the required parameters to perform a payment confirmation
+     * @return CaptureResponse the outcome of the operation with the relative additional infos
+     * @throws Exception in case of data corruption
+     */
+    public function capture(CaptureRequest $dto): CaptureResponse
+    {
+        $dto->setShopId($this->shopID);
+        $xmlResponse = $this->performCall($dto);
+        $response = new CaptureResponse($xmlResponse);
         if (!$this->isValidResponseMac($response) || !$this->isValidOperationMac($response->getOperation()))
             throw new Exception(self::MAC_EXCEPTION_MESSAGE);
         return $response;
     }
 
-    /**
-     * @param VerifyRequestDto $dto data transfer object containing all the required parameters to perform a verify request
-     * @return VerifyResponse the outcome of the operation with the relative additional infos
-     * @throws Exception in case of data corruption
-     */
-    public function verifyRequest(VerifyRequestDto $dto): VerifyResponse
-    {
-        $xmlResponse = $this->performCall($dto);
-        $response = new VerifyResponse($xmlResponse);
-        if (!$this->isValidResponseMac($response)) //|| !$this->isValidVerify($response->getVerify()))
-            throw new Exception(self::MAC_EXCEPTION_MESSAGE);
-        return $response;
-    }
 
     /**
-     * @param RefundRequestDto $dto data transfer object containing all the required parameters to perform a payment refund
+     * @param RefundRequest $dto data transfer object containing all the required parameters to perform a payment refund
      * @return RefundResponse the outcome of the operation with the relative additional infos
      * @throws Exception in case of data corruption
      */
-    public function refundPayment(RefundRequestDto $dto): RefundResponse
+    public function refundPayment(RefundRequest $dto): RefundResponse
     {
+        $dto->setShopId($this->shopID);
         $xmlResponse = $this->performCall($dto);
         $response = new RefundResponse($xmlResponse);
         if (!$this->isValidResponseMac($response) || !$this->isValidOperationMac($response->getOperation()))
@@ -203,12 +216,13 @@ class VPOSClient
     }
 
     /**
-     * @param OrderStatusRequestDto $dto data transfer object containing all the required parameters to perform an order status request
+     * @param OrderStatusRequest $dto data transfer object containing all the required parameters to perform an order status request
      * @return OrderStatusResponse the outcome of the operation with the relative additional infos
      * @throws Exception in case of data corruption
      */
-    public function getOrderStatus(OrderStatusRequestDto $dto): OrderStatusResponse
+    public function getOrderStatus(OrderStatusRequest $dto): OrderStatusResponse
     {
+        $dto->setShopId($this->shopID);
         $xmlResponse = $this->performCall($dto);
         $response = new OrderStatusResponse($xmlResponse);
         if ($this->isValidResponseMac($response) && $this->isValidPanAliasData($response->getPanAliasData())) {
@@ -246,10 +260,10 @@ class VPOSClient
         $this->restClient->disableBasicAuth();
     }
 
-    private function performCall(RequestDto $dto): string
+    private function performCall(Request $dto): string
     {
         $xml = $dto->getXML();
-        $xml = str_replace(RequestDto::MAC_TAG_VALUE, $this->encoder->getRequestMac($dto->getMacArray(), $this->apiKey), $xml);
+        $xml = str_replace(Request::MAC_TAG_VALUE, $this->encoder->getRequestMac($dto->getMacArray(), $this->apiKey), $xml);
         return $this->restClient->callAPI($this->urlWebApi, $xml);
     }
 
@@ -296,13 +310,19 @@ class VPOSClient
         return true;
     }
 
-    private function isValidVerify(?Verify $verify)
-    {
-        if (isset($verify)) {
-            $calculatedMac = $this->encoder->getResponseMac($verify->getMacArray(), $this->apiKey);
-            return strcmp($verify->getMac(), self::MAC_NEUTRAL_VALUE) == 0 || $calculatedMac === $verify->getMac();
+
+    private function isValidThreeDSChallenge(?ThreeDSChallenge $threeDSChallenge){
+        if (isset($threeDSChallenge)) {
+            $calculatedMac = $this->encoder->getResponseMac($threeDSChallenge->getMacArray(), $this->apiKey);
+            return strcmp($threeDSChallenge->getMac(), self::MAC_NEUTRAL_VALUE) == 0 || $calculatedMac === $threeDSChallenge->getMac();
         }
-        return true;
+    }
+
+    private function isValidThreeDSMethod(?ThreeDSMethod $threeDSMethod){
+        if (isset($threeDSMethod)) {
+            $calculatedMac = $this->encoder->getResponseMac($threeDSMethod->getMacArray(), $this->apiKey);
+            return strcmp($threeDSMethod->getMac(), self::MAC_NEUTRAL_VALUE) == 0 || $calculatedMac === $threeDSMethod->getMac();
+        }
     }
 
 }

@@ -1,10 +1,10 @@
 <?php
-require_once(__DIR__ . "/RequestDto.php");
+require_once(__DIR__ . "/Request.php");
 
-class ConfirmRequestDto extends RequestDto
+class CaptureRequest extends Request
 {
     private const OPERATION = "ACCOUNTING";
-    private const ACCOUNTING_TAG = "Accounting";
+    private const ACCOUNTING_REQUEST_TAG = "Accounting";
 
     private string $transactionId;
     private string $orderId;
@@ -15,7 +15,7 @@ class ConfirmRequestDto extends RequestDto
     private ?string $opDescr = null;
 
     /**
-     * ConfirmRequestDto constructor.
+     * CaptureRequest constructor.
      */
     public function __construct()
     {
@@ -37,7 +37,7 @@ class ConfirmRequestDto extends RequestDto
 
         $xml .= $this->getXMLClosing();
         $xml = str_replace(static::OPERATION_TAG_VALUE, static::OPERATION, $xml);
-        $xml = $xml = str_replace(static::VARIABLE_REQUEST_TAG, static::ACCOUNTING_TAG, $xml);
+        $xml = $xml = str_replace(static::VARIABLE_REQUEST_TAG, static::ACCOUNTING_REQUEST_TAG, $xml);
         return $xml;
     }
 

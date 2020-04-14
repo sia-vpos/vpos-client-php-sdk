@@ -1,14 +1,14 @@
 <?php
-require_once(__DIR__ . "/RequestDto.php");
+require_once(__DIR__ . "/Request.php");
 
 
 /**
- * Class OrderStatusRequestDto
+ * Class OrderStatusRequest
  *
  * Data transfer object of an "order status" request
  *
  */
-class OrderStatusRequestDto extends RequestDto
+class OrderStatusRequest extends Request
 {
     private const OPERATION = "ORDERSTATUS";
     private const ORDERSTATUS_TAG = "OrderStatus";
@@ -20,7 +20,7 @@ class OrderStatusRequestDto extends RequestDto
     private ?string $productRef = null;
 
     /**
-     * OrderStatusRequestDto constructor.
+     * OrderStatusRequest constructor.
      */
     public function __construct()
     {
@@ -34,6 +34,7 @@ class OrderStatusRequestDto extends RequestDto
         //start from </Header>
         XMLUtils::appendTag($xml, self::ORDER_ID_TAG, $this->orderId);
         XMLUtils::appendTag($xml, self::PRODUCTREF_TAG, $this->productRef);
+        XMLUtils::appendTag($xml, self::OPTIONS_TAG, $this->options);
 
         $xml .= $this->getXMLClosing();
         $xml = str_replace(static::OPERATION_TAG_VALUE, static::OPERATION, $xml);

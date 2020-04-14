@@ -1,36 +1,26 @@
 <?php
 require_once(__DIR__ . "/Response.php");
 require_once(__DIR__ . "/Authorization.php");
-require_once(__DIR__ . "/VBVRedirect.php");
 require_once(__DIR__ . "/PanAliasData.php");
 
-/**
- * Class Auth3DSResponse
- */
-class Auth3DSResponse extends Response
+class AuthorizeResponse extends Response
 {
     private ?Authorization $authorization = null;
-    private ?VBVRedirect $vbvRedirect = null;
     private ?PanAliasData $panAliasData = null;
 
-    /**
-     * Auth3DSResponse constructor.
-     * @param string $xml representation of the object
-     */
     public function __construct(string $xml)
     {
         parent::__construct($xml);
         $response = new SimpleXMLElement($xml);
         if (isset($response->Data->Authorization))
             $this->authorization = new Authorization($response->Data->Authorization);
-        if (isset($response->Data->VBVRedirect))
-            $this->vbvRedirect = new VBVRedirect($response->Data->VBVRedirect);
+        $this->vbvRedirect = new VBVRedirect($response->Data->VBVRedirect);
         if (isset($response->Data->PanAliasData))
             $this->panAliasData = new PanAliasData($response->Data->PanAliasData);
     }
 
     /**
-     * @return Authorization
+     * @return Authorization|null
      */
     public function getAuthorization(): ?Authorization
     {
@@ -38,19 +28,27 @@ class Auth3DSResponse extends Response
     }
 
     /**
-     * @return VBVRedirect
+     * @param Authorization|null $authorization
      */
-    public function getVbvRedirect(): ?VBVRedirect
+    public function setAuthorization(?Authorization $authorization): void
     {
-        return $this->vbvRedirect;
+        $this->authorization = $authorization;
     }
 
     /**
-     * @return PanAliasData
+     * @return PanAliasData|null
      */
     public function getPanAliasData(): ?PanAliasData
     {
         return $this->panAliasData;
+    }
+
+    /**
+     * @param PanAliasData|null $panAliasData
+     */
+    public function setPanAliasData(?PanAliasData $panAliasData): void
+    {
+        $this->panAliasData = $panAliasData;
     }
 
 }

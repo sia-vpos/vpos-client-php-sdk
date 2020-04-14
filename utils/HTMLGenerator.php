@@ -14,6 +14,8 @@ class HTMLGenerator
     private const FORM_PATTERN = "PGZvcm0gYWN0aW9uPSJbQVBPU19VUkxdIiBtZXRob2Q9IlBPU1QiPjxpbnB1dCBuYW1lPSJQQUdFIiB0eXBlPSJoaWRkZW4iIHZhbHVlPSJMQU5EIj5bUEFSQU1FVEVSU108aW5wdXQgaWQ9InN1Ym1pdCIgc3R5bGU9ImRpc3BsYXk6IG5vbmU7IiB0eXBlPXN1Ym1pdCAgdmFsdWU9Ii4iPjwvZm9ybT4=";
     private const INPUT_PATTERN = "PGlucHV0IHR5cGU9ImhpZGRlbiIgbmFtZT0iS0VZIiB2YWx1ZT0iVkFMVUUiPg==";
     private const SCRIPT = "PHNjcmlwdCB0eXBlPSJ0ZXh0L2phdmFzY3JpcHQiPndpbmRvdy5vbmxvYWQgPSBmdW5jdGlvbigpe3NldFRpbWVvdXQoZnVuY3Rpb24oKXtkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnc3VibWl0JykuY2xpY2soKTt9LCBbREVMQVldKTt9PC9zY3JpcHQ+";
+    private const DEFAULT_HTML = "<div><form id=\"myForm\"action=\"[APOS_URL]\" method=\"POST\"><input name=\"PAGE\" type=\"hidden\" value=\"LAND\">[PARAMETERS]</form><script>document.getElementById('myForm').submit();</script></div>";
+    private const TOKEN_HTML = "<div><form id=\"myForm\"action=\"[APOS_URL]\" method=\"POST\"><input name=\"PAGE\" type=\"hidden\" value=\"TOKEN\">[PARAMETERS]</form><script>document.getElementById('myForm').submit();</script></div>";
 
     /**
      * Generates the hidden form content for a redirect payment
@@ -54,17 +56,21 @@ class HTMLGenerator
     }
 
     /**
-     * @param string $filepath std filepath of the html template
      * @param string $urlApos redirect url used to carry out the payment
      * @param array $params payment info
-     * @return string the base64 format of the html document
+     * @param bool $isToken token payment instrument check
+     * @return string the html document
      */
-    public function htmlToBase64(string $filepath, string $urlApos, array $params)
+    public function htmlOutput(string $urlApos, array $params, bool $isToken)
     {
-        $html = file_get_contents($filepath);
+        $html = self::DEFAULT_HTML;
+        if($isToken)
+        {
+            $html = self::TOKEN_HTML;
+        }
         $html = str_replace("[APOS_URL]", $urlApos, $html);
         $html = str_replace("[PARAMETERS]", $this->generateParamsHtml($params), $html);
-        return base64_encode($html);
+        return $html;
     }
 
 }

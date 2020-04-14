@@ -43,14 +43,149 @@ class PaymentInfo
     private ?string $taxId = null;
     private ?string $productRef = null;
     private ?string $antiFraud = null;
-    private ?Data3DSJson $data3DS = null;
+    private ?string $trecurr = null;
+    private ?string $crecurr = null;
+    private ?string $token = null;
+    private ?string $expDate = null;
+    private ?string $network = null;
+    private ?string $iban = null;
+    private ?string $nameCH = null;
+    private ?string $surnameCH = null;
+    private ?string $data3DS = null;
+
+    /**
+     * @return string|null
+     */
+    public function getTrecurr(): ?string
+    {
+        return $this->trecurr;
+    }
+
+    /**
+     * @param string|null $trecurr
+     */
+    public function setTrecurr(?string $trecurr): void
+    {
+        $this->trecurr = $trecurr;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCrecurr(): ?string
+    {
+        return $this->crecurr;
+    }
+
+    /**
+     * @param string|null $crecurr
+     */
+    public function setCrecurr(?string $crecurr): void
+    {
+        $this->crecurr = $crecurr;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    /**
+     * @param string|null $token
+     */
+    public function setToken(?string $token): void
+    {
+        $this->token = $token;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getExpDate(): ?string
+    {
+        return $this->expDate;
+    }
+
+    /**
+     * @param string|null $expDate
+     */
+    public function setExpDate(?string $expDate): void
+    {
+        $this->expDate = $expDate;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getNetwork(): ?string
+    {
+        return $this->network;
+    }
+
+    /**
+     * @param string|null $network
+     */
+    public function setNetwork(?string $network): void
+    {
+        $this->network = $network;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getIban(): ?string
+    {
+        return $this->iban;
+    }
+
+    /**
+     * @param string|null $iban
+     */
+    public function setIban(?string $iban): void
+    {
+        $this->iban = $iban;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getNameCH(): ?string
+    {
+        return $this->nameCH;
+    }
+
+    /**
+     * @param string|null $nameCH
+     */
+    public function setNameCH(?string $nameCH): void
+    {
+        $this->nameCH = $nameCH;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSurnameCH(): ?string
+    {
+        return $this->surnameCH;
+    }
+
+    /**
+     * @param string|null $surnameCH
+     */
+    public function setSurnameCH(?string $surnameCH): void
+    {
+        $this->surnameCH = $surnameCH;
+    }
 
     /**
      * @return array
      */
     public function getMacArray(): array
     {
-        //TODO
         return array(
             "URLMS" => $this->urlMs,
             "URLDONE" => $this->urlDone,
@@ -79,7 +214,19 @@ class PaymentInfo
             "USER" => $this->userId,
             "PRODUCTREF" => $this->productRef,
             "ANTIFRAUD" => $this->antiFraud,
-            "3DSDATA" => $this->data3DS
+            "3DSDATA" => $this->data3DS,
+            "TRECURR" => $this->trecurr,
+            "CRECURR" => $this->crecurr,
+            "TOKEN" => $this->token,
+            "EXPDATE" => $this->expDate,
+            "NETWORK" => $this->network,
+            "IBAN" => $this->iban,
+            "URLBACK" => $this->urlBack,
+            "LANG" => $this->lang,
+            "SHOPEMAIL" => $this->shopEmail,
+            "EMAIL" => $this->email,
+            "NAMECH" => $this->nameCH,
+            "SURNAMECH" => $this->surnameCH
         );
     }
 
