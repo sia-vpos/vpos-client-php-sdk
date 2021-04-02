@@ -40,6 +40,9 @@ class Auth3DS2Step0 extends Request
     private ?string $cPROF;
     private ?string $threeDSMtdNotifURL;
     private ?string $challengeWinSize;
+    private ?string $tRecurr;
+    private ?string $cRecurr;
+    private ?string $installmentsNumber;
 
     public function __construct()
     {
@@ -76,6 +79,9 @@ class Auth3DS2Step0 extends Request
         XMLUtils::appendTag($xml, self::THREEDS_DATA_TAG, $this->threeDSData);
         XMLUtils::appendTag($xml, self::NOTIF_URL_TAG, $this->notifURL);
         XMLUtils::appendTag($xml, self::CHALLENGE_WIN_SIZE_TAG, $this->challengeWinSize);
+        XMLUtils::appendTag($xml, self::T_RECURR_TAG, $this->tRecurr);
+        XMLUtils::appendTag($xml, self::C_RECURR_TAG, $this->cRecurr);
+        XMLUtils::appendTag($xml, self::INSTALLMENTS_NUMBER_TAG, $this->installmentsNumber);
         XMLUtils::appendTag($xml, self::CPROF_TAG, $this->cPROF);
         XMLUtils::appendTag($xml, self::THREEDS_MTD_NOTIF_URL, $this->threeDSMtdNotifURL);
         XMLUtils::appendTag($xml, self::OPTIONS_TAG, $this->options);
@@ -119,7 +125,10 @@ class Auth3DS2Step0 extends Request
             "NAMECH"=> $this->nameCH,
             "NOTIFURL"=> $this->notifURL,
             "THREEDSMTDNOTIFURL"=> $this->threeDSMtdNotifURL,
-            "CHALLENGEWINSIZE"=>$this->challengeWinSize
+            "CHALLENGEWINSIZE"=>$this->challengeWinSize,
+            "TRECURR" => $this -> tRecurr,
+            "CRECURR" => $this -> cRecurr,
+            "INSTALLMENTSNUMBER" => $this -> installmentsNumber
         );
     }
 
@@ -570,4 +579,53 @@ class Auth3DS2Step0 extends Request
     {
         $this->challengeWinSize = $challengeWinSize;
     }
+
+    /**
+     * @return string|null
+     */
+    public function getTRecurr(): ?string
+    {
+        return $this->tRecurr;
+    }
+
+    /**
+     * @param string|null $tRecurr
+     */
+    public function setTRecurr(?string $tRecurr): void
+    {
+        $this->tRecurr = $tRecurr;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCRecurr(): ?string
+    {
+        return $this->cRecurr;
+    }
+
+    /**
+     * @param string|null $cRecurr
+     */
+    public function setCRecurr(?string $cRecurr): void
+    {
+        $this->cRecurr = $cRecurr;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getInstallmentsNumber(): ?string
+    {
+        return $this->installmentsNumber;
+    }
+
+    /**
+     * @param string|null $installmentsNumber
+     */
+    public function setInstallmentsNumber(?string $installmentsNumber): void
+    {
+        $this->installmentsNumber = $installmentsNumber;
+    }
+
 }

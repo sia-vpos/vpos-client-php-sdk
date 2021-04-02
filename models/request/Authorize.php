@@ -18,6 +18,9 @@ class Authorize extends Request
     private string $exponent;
     private string $accountingMode;
     private string $network;
+    private ?string $tRecurr;
+    private ?string $cRecurr;
+    private ?string $installmentsNumber;
     private ?string $emailCH;
 
     /**
@@ -371,6 +374,56 @@ class Authorize extends Request
     {
         $this->taxID = $taxID;
     }
+
+    /**
+     * @return string|null
+     */
+    public function getTRecurr(): ?string
+    {
+        return $this->tRecurr;
+    }
+
+    /**
+     * @param string|null $tRecurr
+     */
+    public function setTRecurr(?string $tRecurr): void
+    {
+        $this->tRecurr = $tRecurr;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCRecurr(): ?string
+    {
+        return $this->cRecurr;
+    }
+
+    /**
+     * @param string|null $cRecurr
+     */
+    public function setCRecurr(?string $cRecurr): void
+    {
+        $this->cRecurr = $cRecurr;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getInstallmentsNumber(): ?string
+    {
+        return $this->installmentsNumber;
+    }
+
+    /**
+     * @param string|null $installmentsNumber
+     */
+    public function setInstallmentsNumber(?string $installmentsNumber): void
+    {
+        $this->installmentsNumber = $installmentsNumber;
+    }
+
+
     private ?string $userID;
     private ?string $acquirer;
     private ?string $ipAddress;
@@ -392,64 +445,68 @@ class Authorize extends Request
     {
         $xml = $this->getXMLOpening();
 
-        XMLUtils::appendTag($xml,self::ORDER_ID_TAG,$this->orderID);
-        XMLUtils::appendTag($xml,self::PAN_TAG,$this->pan);
-        XMLUtils::appendTag($xml,self::CVV2_TAG,$this->cvv2);
-        XMLUtils::appendTag($xml,self::CREATE_PAN_ALIAS_TAG,$this->createPanAlias);
-        XMLUtils::appendTag($xml,self::EXPDATE_TAG,$this->expDate);
-        XMLUtils::appendTag($xml,self::AMOUNT_TAG,$this->amount);
-        XMLUtils::appendTag($xml,self::CURRENCY_TAG,$this->currency);
-        XMLUtils::appendTag($xml,self::EXPONENT_TAG,$this->exponent);
-        XMLUtils::appendTag($xml,self::ACCOUNTING_MODE_TAG,$this->accountingMode);
-        XMLUtils::appendTag($xml,self::NETWORK_TAG,$this->network);
-        XMLUtils::appendTag($xml,self::EMAIL_CH_TAG,$this->emailCH);
-        XMLUtils::appendTag($xml,self::USER_ID_TAG,$this->userID);
-        XMLUtils::appendTag($xml,self::ACQUIRER_TAG,$this->acquirer);
-        XMLUtils::appendTag($xml,self::USR_AUTH_FLAG_TAG,$this->usrAuthFlag);
-        XMLUtils::appendTag($xml,self::OPDESCR_TAG,$this->opDescr);
-        XMLUtils::appendTag($xml,self::OPTIONS_TAG,$this->options);
-        XMLUtils::appendTag($xml,self::ANTIFRAUD_TAG,$this->antifraud);
-        XMLUtils::appendTag($xml,self::PRODUCTREF_TAG,$this->productRef);
-        XMLUtils::appendTag($xml,self::NAME_TAG,$this->name);
-        XMLUtils::appendTag($xml,self::SURNAME_TAG,$this->surname);
-        XMLUtils::appendTag($xml,self::TAX_ID_TAG,$this->taxID);
-
+        XMLUtils::appendTag($xml, self::ORDER_ID_TAG, $this->orderID);
+        XMLUtils::appendTag($xml, self::PAN_TAG, $this->pan);
+        XMLUtils::appendTag($xml, self::CVV2_TAG, $this->cvv2);
+        XMLUtils::appendTag($xml, self::CREATE_PAN_ALIAS_TAG, $this->createPanAlias);
+        XMLUtils::appendTag($xml, self::EXPDATE_TAG, $this->expDate);
+        XMLUtils::appendTag($xml, self::AMOUNT_TAG, $this->amount);
+        XMLUtils::appendTag($xml, self::CURRENCY_TAG, $this->currency);
+        XMLUtils::appendTag($xml, self::EXPONENT_TAG, $this->exponent);
+        XMLUtils::appendTag($xml, self::ACCOUNTING_MODE_TAG, $this->accountingMode);
+        XMLUtils::appendTag($xml, self::NETWORK_TAG, $this->network);
+        XMLUtils::appendTag($xml, self::EMAIL_CH_TAG, $this->emailCH);
+        XMLUtils::appendTag($xml, self::USER_ID_TAG, $this->userID);
+        XMLUtils::appendTag($xml, self::ACQUIRER_TAG, $this->acquirer);
+        XMLUtils::appendTag($xml, self::USR_AUTH_FLAG_TAG, $this->usrAuthFlag);
+        XMLUtils::appendTag($xml, self::OPDESCR_TAG, $this->opDescr);
+        XMLUtils::appendTag($xml, self::OPTIONS_TAG, $this->options);
+        XMLUtils::appendTag($xml, self::ANTIFRAUD_TAG, $this->antifraud);
+        XMLUtils::appendTag($xml, self::PRODUCTREF_TAG, $this->productRef);
+        XMLUtils::appendTag($xml, self::NAME_TAG, $this->name);
+        XMLUtils::appendTag($xml, self::SURNAME_TAG, $this->surname);
+        XMLUtils::appendTag($xml, self::TAX_ID_TAG, $this->taxID);
+        XMLUtils::appendTag($xml, self::T_RECURR_TAG, $this->tRecurr);
+        XMLUtils::appendTag($xml, self::C_RECURR_TAG, $this->cRecurr);
+        XMLUtils::appendTag($xml, self::INSTALLMENTS_NUMBER_TAG, $this->installmentsNumber);
 
         $xml .= $this->getXMLClosing();
         $xml = str_replace(static::OPERATION_TAG_VALUE, static::OPERATION, $xml);
-        $xml = $xml = str_replace(static::VARIABLE_REQUEST_TAG, static::AUTHORIZE_REQUEST_TAG, $xml);
-        return $xml;
+        return str_replace(static::VARIABLE_REQUEST_TAG, static::AUTHORIZE_REQUEST_TAG, $xml);
     }
 
     public function getMacArray(): array
     {
         return array(
-        "OPERATION" => self::OPERATION,
-            "TIMESTAMP"=> $this->timestamp,
-            "SHOPID"=> $this->shopId,
+            "OPERATION" => self::OPERATION,
+            "TIMESTAMP" => $this->timestamp,
+            "SHOPID" => $this->shopId,
             "ORDERID" => $this->orderID,
-            "OPERATORID"=> $this->operatorId,
-            "REQREFNUM"=> $this->reqRefNum,
-            "PAN"=> $this->pan,
-            "CVV2"=> $this->cvv2,
-            "EXPDATE"=> $this->expDate,
-            "AMOUNT"=> $this->amount,
-            "CURRENCY"=> $this->currency,
-            "EXPONENT"=> $this->exponent,
-            "ACCOUNTINGMODE"=> $this->accountingMode,
-            "NETWORK"=> $this->network,
-            "EMAILCH"=> $this->emailCH,
-            "USERID"=> $this->userID,
-            "ACQUIRER"=> $this->acquirer,
-            "IPADDRESS"=> $this->ipAddress,
-            "OPDESCR"=> $this->opDescr,
-            "USRAUTHFLAG"=> $this->usrAuthFlag,
-            "OPTIONS"=> $this->options,
-            "ANTIFRAUD"=> $this->antifraud,
-            "PRODUCTREF"=> $this->productRef,
-            "NAME"=> $this->name,
-            "SURNAME"=> $this->surname,
-            "TAXID"=>$this->taxID
+            "OPERATORID" => $this->operatorId,
+            "REQREFNUM" => $this->reqRefNum,
+            "PAN" => $this->pan,
+            "CVV2" => $this->cvv2,
+            "EXPDATE" => $this->expDate,
+            "AMOUNT" => $this->amount,
+            "CURRENCY" => $this->currency,
+            "EXPONENT" => $this->exponent,
+            "ACCOUNTINGMODE" => $this->accountingMode,
+            "NETWORK" => $this->network,
+            "EMAILCH" => $this->emailCH,
+            "USERID" => $this->userID,
+            "ACQUIRER" => $this->acquirer,
+            "IPADDRESS" => $this->ipAddress,
+            "OPDESCR" => $this->opDescr,
+            "USRAUTHFLAG" => $this->usrAuthFlag,
+            "OPTIONS" => $this->options,
+            "ANTIFRAUD" => $this->antifraud,
+            "PRODUCTREF" => $this->productRef,
+            "NAME" => $this->name,
+            "SURNAME" => $this->surname,
+            "TAXID" => $this->taxID,
+            "TRECURR" => $this->tRecurr,
+            "CRECURR" => $this->cRecurr,
+            "INSTALLMENTSNUMBER" => $this->installmentsNumber
         );
     }
 }

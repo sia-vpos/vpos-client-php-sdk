@@ -87,6 +87,9 @@ abstract class Request
     protected const THREEDS_MTD_NOTIF_URL = "ThreeDSMtdNotifUrl";
     protected const THREEDS_MTD_COMPL_IND_TAG = "ThreeDsMtdComplInd";
     protected const THREEDS_TRANS_ID_TAG = "ThreeDsTransID";
+    protected const T_RECURR_TAG = "TRecurr";
+    protected const C_RECURR_TAG = "CRecurr";
+    protected const INSTALLMENTS_NUMBER_TAG = "InstallmentsNumber";
 
 
 
