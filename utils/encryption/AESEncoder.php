@@ -23,11 +23,11 @@ class AESEncoder
     public static function encrypt($secretKey, $plainText)
     {
         try {
-            // Check secret length
+            $secretKey = substr($secretKey, 0, 16);
             if (!static::isKeyLengthValid($secretKey)) {
-                throw new \InvalidArgumentException("Secret key's length must be 128, 192 or 256 bits");
+                throw new \InvalidArgumentException("Secret key's length must be exactly 128 bits");
             }
- 
+
             $initVector = null;
             // Encrypt input text
             $raw = openssl_encrypt(
@@ -55,14 +55,13 @@ class AESEncoder
     /**
      * Check that secret password length is valid
      *
-     * @param string $secretKey 16/24/32 -characters secret password
+     * @param string $secretKey 16 -characters secret password
      *
      * @return bool
      */
     public static function isKeyLengthValid($secretKey)
     {
-        $length = strlen($secretKey);
-        return $length == 16 || $length == 24 || $length == 32;
+        return strlen($secretKey) == 16;
     }
 
 }

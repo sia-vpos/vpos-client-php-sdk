@@ -335,7 +335,7 @@ class VPOSClient
     {
         if (isset($response))
             return strcmp($response->getResult(), self::INCORRECT_MAC) != 0 && strcmp($response->getResult(), self::BAD_REQUEST) != 0;
-        return true;
+        return false;
     }
 
 }
