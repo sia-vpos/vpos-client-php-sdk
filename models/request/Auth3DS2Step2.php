@@ -36,7 +36,8 @@ class Auth3DS2Step2 extends Request
 
         XMLUtils::appendTag($xml, self::THREEDS_TRANS_ID_TAG, $this->threeDsTransId);
 
-        $xml .= $this->getXMLClosing();$xml = str_replace(static::OPERATION_TAG_VALUE, static::OPERATION, $xml);
+        $xml .= $this->getXMLClosing();
+        $xml = str_replace(static::OPERATION_TAG_VALUE, static::OPERATION, $xml);
         $xml = $xml = str_replace(static::VARIABLE_REQUEST_TAG, static::AUTH3DS2STEP2_REQUEST_TAG, $xml);
         return $xml;
     }

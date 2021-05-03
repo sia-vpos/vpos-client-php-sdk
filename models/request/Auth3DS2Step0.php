@@ -23,26 +23,25 @@ class Auth3DS2Step0 extends Request
     private string $threeDSData;
 
     //not compulsory
-    private ?string $cvv2;
-    private ?string $userID;
-    private ?string $acquirer;
-    private ?string $ipAddress;
-    private ?string $usrAuthFlag;
-    private ?string $opDescr;
-    private ?string $options;
-    private ?string $antifraud;
-    private ?string $productRef;
-    private ?string $name;
-    private ?string $surname;
-    private ?string $taxID;
-    private ?string $createPanAlias;
-    private ?string $notifURL;
-    private ?string $cPROF;
-    private ?string $threeDSMtdNotifURL;
-    private ?string $challengeWinSize;
-    private ?string $tRecurr;
-    private ?string $cRecurr;
-    private ?string $installmentsNumber;
+    private ?string $cvv2 = null;
+    private ?string $userID = null;
+    private ?string $acquirer = null;
+    private ?string $ipAddress = null;
+    private ?string $usrAuthFlag = null;
+    private ?string $opDescr = null;
+    private ?string $antifraud = null;
+    private ?string $productRef = null;
+    private ?string $name = null;
+    private ?string $surname = null;
+    private ?string $taxID = null;
+    private ?string $createPanAlias = null;
+    private ?string $notifURL = null;
+    private ?string $cPROF = null;
+    private ?string $threeDSMtdNotifURL = null;
+    private ?string $challengeWinSize = null;
+    private ?string $tRecurr = null;
+    private ?string $cRecurr = null;
+    private ?string $installmentsNumber = null;
 
     public function __construct()
     {
@@ -95,40 +94,40 @@ class Auth3DS2Step0 extends Request
     public function getMacArray(): array
     {
         return array(
-            "OPERATION"=> self::OPERATION,
-            "TIMESTAMP"=> $this->timestamp,
-            "SHOPID"=> $this->shopId,
-            "ORDERID"=> $this->orderID,
-            "OPERATORID"=> $this->operatorId,
-            "REQREFNUM"=> $this->reqRefNum,
-            "PAN"=> $this->pan,
-            "CVV2"=> $this->cvv2,
-            "EXPDATE"=> $this->expDate,
-            "AMOUNT"=> $this->amount,
-            "CURRENCY"=> $this->currency,
-            "EXPONENT"=> $this->exponent,
-            "ACCOUNTINGMODE"=> $this->accountingMode,
-            "NETWORK"=> $this->network,
-            "EMAILCH"=> $this->emailCH,
-            "USERID"=> $this->userID,
-            "ACQUIRER"=> $this->acquirer,
-            "IPADDRESS"=> $this->ipAddress,
-            "USRAUTHFLAG"=> $this->usrAuthFlag,
-            "OPDESCR"=> $this->opDescr,
-            "OPTIONS"=> $this->options,
-            "ANTIFRAUD"=> $this->antifraud,
-            "PRODUCTREF"=> $this->productRef,
-            "NAME"=> $this->name,
-            "SURNAME"=> $this->surname,
-            "TAXID"=> $this->taxID,
-            "THREEDSDATA"=> $this->threeDSData,
-            "NAMECH"=> $this->nameCH,
-            "NOTIFURL"=> $this->notifURL,
-            "THREEDSMTDNOTIFURL"=> $this->threeDSMtdNotifURL,
-            "CHALLENGEWINSIZE"=>$this->challengeWinSize,
-            "TRECURR" => $this -> tRecurr,
-            "CRECURR" => $this -> cRecurr,
-            "INSTALLMENTSNUMBER" => $this -> installmentsNumber
+            "OPERATION" => self::OPERATION,
+            "TIMESTAMP" => $this->timestamp,
+            "SHOPID" => $this->shopId,
+            "ORDERID" => $this->orderID,
+            "OPERATORID" => $this->operatorId,
+            "REQREFNUM" => $this->reqRefNum,
+            "PAN" => $this->pan,
+            "CVV2" => $this->cvv2,
+            "EXPDATE" => $this->expDate,
+            "AMOUNT" => $this->amount,
+            "CURRENCY" => $this->currency,
+            "EXPONENT" => $this->exponent,
+            "ACCOUNTINGMODE" => $this->accountingMode,
+            "NETWORK" => $this->network,
+            "EMAILCH" => $this->emailCH,
+            "USERID" => $this->userID,
+            "ACQUIRER" => $this->acquirer,
+            "IPADDRESS" => $this->ipAddress,
+            "USRAUTHFLAG" => $this->usrAuthFlag,
+            "OPDESCR" => $this->opDescr,
+            "OPTIONS" => $this->options,
+            "ANTIFRAUD" => $this->antifraud,
+            "PRODUCTREF" => $this->productRef,
+            "NAME" => $this->name,
+            "SURNAME" => $this->surname,
+            "TAXID" => $this->taxID,
+            "THREEDSDATA" => $this->threeDSData,
+            "NAMECH" => $this->nameCH,
+            "NOTIFURL" => $this->notifURL,
+            "THREEDSMTDNOTIFURL" => $this->threeDSMtdNotifURL,
+            "CHALLENGEWINSIZE" => $this->challengeWinSize,
+            "TRECURR" => $this->tRecurr,
+            "CRECURR" => $this->cRecurr,
+            "INSTALLMENTSNUMBER" => $this->installmentsNumber
         );
     }
 

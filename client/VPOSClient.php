@@ -10,6 +10,7 @@ require_once(__DIR__ . "/../models/response/Authorization.php");
 
 require_once(__DIR__ . "/../utils/apos/RestClient.php");
 require_once(__DIR__ . "/../utils/mac/Encoder.php");
+require_once(__DIR__ . "/../utils/encryption/AESEncoder.php");
 require_once(__DIR__ . "/../utils/HTMLGenerator.php");
 require_once(__DIR__ . "/./ClientConfig.php");
 
@@ -146,7 +147,7 @@ class VPOSClient
     public function start3DS2Step0(Auth3DS2Step0 $dto): Auth3DS2Step0Response
     {
         $dto->setShopId($this->shopID);
-        $dto->setThreeDSData(urlencode(AESEncoder::encrypt($this->apiKey, $dto->getThreeDSData())));
+        $dto->setThreeDSData(AESEncoder::encrypt($this->apiKey, $dto->getThreeDSData()));
         $xmlResponse = $this->performCall($dto);
         $response = new Auth3DS2Step0Response($xmlResponse);
         if (!$this->isValidResponseMac($response) || !$this->isValidAuthMac($response->getAuthorization()) || !$this->isValidThreeDSMethod($response->getThreeDsMethod())
@@ -266,7 +267,7 @@ class VPOSClient
     {
         $xml = $dto->getXML();
         $xml = str_replace(Request::MAC_TAG_VALUE, $this->encoder->getRequestMac($dto->getMacArray(), $this->apiKey), $xml);
-        return $this->restClient->callAPI($this->urlWebApi, $xml);
+        return $this->restClient->callAPI($this->urlWebApi, urlencode($xml));
     }
 
     private function isValidResponseMac(?Response $response)
