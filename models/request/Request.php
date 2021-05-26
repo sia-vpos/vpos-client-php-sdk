@@ -12,7 +12,7 @@ require_once(__DIR__ . "/../../utils/Utils.php");
  */
 abstract class Request
 {
-    private const DATE_FORMAT = "Y-m-d\TH:m:s.v";
+    private const DATE_FORMAT = "Y-m-d\TH:i:s.v";
     private const REQ_REF_NUM_DATE_FORMAT = "Ymd";
 
     //fixed XML requests' values

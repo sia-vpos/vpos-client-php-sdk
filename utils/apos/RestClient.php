@@ -44,6 +44,7 @@ class RestClient
         echo $xmlData;
         $data = "data=" . $xmlData;
         $curl = curl_init();
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
         switch ($method) {
             case "POST":
                 curl_setopt($curl, CURLOPT_POST, 1);

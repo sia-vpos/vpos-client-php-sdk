@@ -7,7 +7,6 @@
  *
  * Model of Data3DS field used in payment operation via redirect url.
  *
- * @author Gabriel Raul Marini
  */
 class Data3DSJson
 {

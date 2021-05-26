@@ -12,8 +12,9 @@ require_once(__DIR__ . "/../models/response/Authorization.php");
 
 require_once(__DIR__ . "/../utils/apos/RestClient.php");
 require_once(__DIR__ . "/../utils/mac/Encoder.php");
+require_once(__DIR__ . "/../utils/encryption/AESEncoder.php");
 require_once(__DIR__ . "/../utils/HTMLGenerator.php");
-require_once (__DIR__ . "/./ClientConfig.php");
+require_once(__DIR__ . "/./ClientConfig.php");
 
 /**
  * Class VPOSClient
@@ -23,6 +24,8 @@ require_once (__DIR__ . "/./ClientConfig.php");
 class VPOSClient
 {
     private const MAC_NEUTRAL_VALUE = "NULL";
+    private const BAD_REQUEST = "03";
+    private const INCORRECT_MAC = "04";
     private const MAC_EXCEPTION_MESSAGE = "Response MAC is not valid! Possible data corruption!";
 
     private string $shopID;
@@ -38,7 +41,7 @@ class VPOSClient
     /**
      * VPOSClient constructor.
      * @param ClientConfig $startKey
- */
+     */
     public function __construct(ClientConfig $config)
     {
         $this->restClient = new RestClient();
@@ -68,7 +71,7 @@ class VPOSClient
             $infoMap["3DSDATA"] = urlencode(AESEncoder::encrypt($this->apiKey, $infoMap["3DSDATA"]));
         $infoMap["MAC"] = $this->encoder->getRequestMac($infoMap, $this->startKey);
         $infoMap["URLBACK"] = $info->getUrlBack();
-        if(isset($infoMap["TOKEN"])){
+        if (isset($infoMap["TOKEN"])) {
             return $this->htmlUtils->htmlOutput($this->redirectUrl, $infoMap, true);
         }
         return $this->htmlUtils->htmlOutput($this->redirectUrl, $infoMap);
@@ -146,10 +149,10 @@ class VPOSClient
     public function start3DS2Step0(Auth3DS2Step0 $dto): Auth3DS2Step0Response
     {
         $dto->setShopId($this->shopID);
-        $dto->setThreeDSData(urlencode(AESEncoder::encrypt($this->apiKey, $dto->getThreeDSData())));
+        $dto->setThreeDSData(AESEncoder::encrypt($this->apiKey, $dto->getThreeDSData()));
         $xmlResponse = $this->performCall($dto);
         $response = new Auth3DS2Step0Response($xmlResponse);
-        if (!$this->isValidResponseMac($response) || !$this->isValidAuthMac($response->getAuthorization())|| !$this->isValidThreeDSMethod($response->getThreeDsMethod())
+        if (!$this->isValidResponseMac($response) || !$this->isValidAuthMac($response->getAuthorization()) || !$this->isValidThreeDSMethod($response->getThreeDsMethod())
             || !$this->isValidThreeDSChallenge($response->getThreeDSChallenge()) || !$this->isValidPanAliasData($response->getPanAliasData()))
             throw new Exception(self::MAC_EXCEPTION_MESSAGE);
         return $response;
@@ -165,7 +168,7 @@ class VPOSClient
         $dto->setShopId($this->shopID);
         $xmlResponse = $this->performCall($dto);
         $response = new Auth3DS2Step1Response($xmlResponse);
-        if (!$this->isValidResponseMac($response) || !$this->isValidAuthMac($response->getAuthorization())||
+        if (!$this->isValidResponseMac($response) || !$this->isValidAuthMac($response->getAuthorization()) ||
             !$this->isValidThreeDSChallenge($response->getThreeDSChallenge()) || !$this->isValidPanAliasData($response->getPanAliasData()))
             throw new Exception(self::MAC_EXCEPTION_MESSAGE);
         return $response;
@@ -181,7 +184,7 @@ class VPOSClient
         $dto->setShopId($this->shopID);
         $xmlResponse = $this->performCall($dto);
         $response = new Auth3DS2Step2Response($xmlResponse);
-        if (!$this->isValidResponseMac($response) || !$this->isValidAuthMac($response->getAuthorization())|| !$this->isValidPanAliasData($response->getPanAliasData()))
+        if (!$this->isValidResponseMac($response) || !$this->isValidAuthMac($response->getAuthorization()) || !$this->isValidPanAliasData($response->getPanAliasData()))
             throw new Exception(self::MAC_EXCEPTION_MESSAGE);
         return $response;
     }
@@ -266,13 +269,13 @@ class VPOSClient
     {
         $xml = $dto->getXML();
         $xml = str_replace(Request::MAC_TAG_VALUE, $this->encoder->getRequestMac($dto->getMacArray(), $this->apiKey), $xml);
-        return $this->restClient->callAPI($this->urlWebApi, $xml);
+        return $this->restClient->callAPI($this->urlWebApi, urlencode($xml));
     }
 
     private function isValidResponseMac(?Response $response)
     {
         $calculatedMac = $this->encoder->getResponseMac($response->getMacArray(), $this->apiKey);
-        return strcmp($response->getMac(), self::MAC_NEUTRAL_VALUE) == 0 || $calculatedMac === $response->getMac();
+        return strcmp($response->getMac(), self::MAC_NEUTRAL_VALUE) == 0 || $calculatedMac === $response->getMac() || !$this->isMacComputable($response);
     }
 
     private function isValidAuthMac(?Authorization $authorization)
@@ -313,18 +316,29 @@ class VPOSClient
     }
 
 
-    private function isValidThreeDSChallenge(?ThreeDSChallenge $threeDSChallenge){
+    private function isValidThreeDSChallenge(?ThreeDSChallenge $threeDSChallenge)
+    {
         if (isset($threeDSChallenge)) {
             $calculatedMac = $this->encoder->getResponseMac($threeDSChallenge->getMacArray(), $this->apiKey);
             return strcmp($threeDSChallenge->getMac(), self::MAC_NEUTRAL_VALUE) == 0 || $calculatedMac === $threeDSChallenge->getMac();
         }
+        return true;
     }
 
-    private function isValidThreeDSMethod(?ThreeDSMethod $threeDSMethod){
+    private function isValidThreeDSMethod(?ThreeDSMethod $threeDSMethod)
+    {
         if (isset($threeDSMethod)) {
             $calculatedMac = $this->encoder->getResponseMac($threeDSMethod->getMacArray(), $this->apiKey);
             return strcmp($threeDSMethod->getMac(), self::MAC_NEUTRAL_VALUE) == 0 || $calculatedMac === $threeDSMethod->getMac();
         }
+        return true;
+    }
+
+    private function isMacComputable(?Response $response)
+    {
+        if (isset($response))
+            return strcmp($response->getResult(), self::INCORRECT_MAC) != 0 && strcmp($response->getResult(), self::BAD_REQUEST) != 0;
+        return false;
     }
 
 }
