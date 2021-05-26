@@ -5,6 +5,8 @@ require_once(__DIR__ . "/../models/request/OrderStatusRequest.php");
 require_once(__DIR__ . "/../models/response/Auth3DS2Step0Response.php");
 require_once(__DIR__ . "/../models/response/Auth3DS2Step1Response.php");
 require_once(__DIR__ . "/../models/response/Auth3DS2Step2Response.php");
+require_once(__DIR__ . "/../models/response/OrderStatusResponse.php");
+require_once (__DIR__ . "/../models/response/AuthorizeResponse.php");
 require_once(__DIR__ . "/../models/response/Authorization.php");
 
 

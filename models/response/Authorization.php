@@ -28,6 +28,13 @@ class Authorization
     private string $paymentTypePP;
     private string $rRN;
     private string $cardType;
+    private string $cardholderInfo;
+    private string $installmentsNumber;
+    private string $ticklerMerchantCode;
+    private string $ticklerPlanCode;
+    private string $ticklerSubscriptionCode;
+
+
     private string $mac;
 
     public function __construct(SimpleXMLElement $authorization)
@@ -36,7 +43,7 @@ class Authorization
         $this->authorizationType = $authorization->AuthorizationType;
         $this->transactionID = $authorization->TransactionID;
         $this->network = $authorization->Network;
-        $this->orderID = $authorization->OrderId;
+        $this->orderID = $authorization->OrderId ?? $authorization->OrderID ?? " ";
         $this->transactionAmount = $authorization->TransactionAmount;
         $this->authorizedAmount = $authorization->AuthorizedAmount;
         $this->currency = $authorization->Currency;
@@ -55,6 +62,11 @@ class Authorization
         $this->paymentTypePP = $authorization->PaymentTypePP;
         $this->rRN = $authorization->RRN;
         $this->cardType = $authorization->CardType;
+        $this->cardholderInfo = $authorization->CardholderInfo;
+        $this->installmentsNumber = $authorization->InstallmentsNumber;
+        $this->ticklerMerchantCode = $authorization->TicklerMerchantCode;
+        $this->ticklerPlanCode = $authorization->TicklerPlanCode;
+        $this->ticklerSubscriptionCode = $authorization->TicklerSubscriptionCode;
         $this->mac = $authorization->MAC;
     }
 
@@ -72,7 +84,7 @@ class Authorization
             $this->refundedAmount,
             $this->transactionResult,
             $this->timestamp,
-            $this->authorizationNumber,
+            strlen($this->authorizationNumber) > 0 ? $this->authorizationNumber : " ",
             $this->acquirerBIN,
             $this->merchantID,
             $this->transactionStatus,
@@ -81,7 +93,12 @@ class Authorization
             $this->panExpiryDate,
             $this->paymentTypePP,
             $this->rRN,
-            $this->cardType
+            $this->cardType,
+            $this->cardholderInfo,
+            $this->installmentsNumber,
+            $this->ticklerMerchantCode,
+            $this->ticklerPlanCode,
+            $this->ticklerSubscriptionCode
         );
     }
 
