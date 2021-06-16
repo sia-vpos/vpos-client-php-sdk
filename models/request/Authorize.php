@@ -10,18 +10,18 @@ class Authorize extends Request
 
     private string $orderID;
     private string $pan;
-    private ?string $cvv2;
+    private ?string $cvv2 = null;
     private string $expDate;
-    private ?string $createPanAlias;
+    private ?string $createPanAlias = null;
     private string $amount;
     private string $currency;
     private string $exponent;
     private string $accountingMode;
     private string $network;
-    private ?string $tRecurr;
-    private ?string $cRecurr;
-    private ?string $installmentsNumber;
-    private ?string $emailCH;
+    private ?string $tRecurr = null;
+    private ?string $cRecurr = null;
+    private ?string $installmentsNumber = null;
+    private ?string $emailCH = null;
 
     /**
      * @return string
@@ -282,22 +282,6 @@ class Authorize extends Request
     /**
      * @return string|null
      */
-    public function getOptions(): ?string
-    {
-        return $this->options;
-    }
-
-    /**
-     * @param string|null $options
-     */
-    public function setOptions(?string $options): void
-    {
-        $this->options = $options;
-    }
-
-    /**
-     * @return string|null
-     */
     public function getAntifraud(): ?string
     {
         return $this->antifraud;
@@ -424,17 +408,16 @@ class Authorize extends Request
     }
 
 
-    private ?string $userID;
-    private ?string $acquirer;
-    private ?string $ipAddress;
-    private ?string $usrAuthFlag;
-    private ?string $opDescr;
-    private ?string $options;
-    private ?string $antifraud;
-    private ?string $productRef;
-    private ?string $name;
-    private ?string $surname;
-    private ?string $taxID;
+    private ?string $userID = null;
+    private ?string $acquirer = null;
+    private ?string $ipAddress = null;
+    private ?string $usrAuthFlag = null;
+    private ?string $opDescr = null;
+    private ?string $antifraud = null;
+    private ?string $productRef = null;
+    private ?string $name = null;
+    private ?string $surname = null;
+    private ?string $taxID = null;
 
     public function __construct()
     {

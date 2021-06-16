@@ -1,7 +1,7 @@
 <?php
 require_once(__DIR__ . "/Response.php");
-require_once(__DIR__ . "/Verify.php");
 require_once(__DIR__ . "/PanAliasData.php");
+require_once(__DIR__ . "/CardHolderData.php");
 
 /**
  * Class OrderStatusResponse
@@ -12,6 +12,7 @@ class OrderStatusResponse extends Response
     private ?string $numberOfItems = null;
     private ?array $authorizations = null;
     private ?PanAliasData $panAliasData = null;
+    private ?CardHolderData $cardHolderData = null;
 
     /**
      * OrderStatusResponse constructor.
@@ -28,6 +29,8 @@ class OrderStatusResponse extends Response
                 $this->authorizations[$i] = new Authorization($response->Data->Authorization[$i]);
         if ($response->Data->PanAliasData)
             $this->panAliasData = new PanAliasData($response->Data->PanAliasData);
+        if ($response->Data->CardHolderData)
+            $this->cardHolderData = new CardHolderData($response->Data->CardHolderData);
     }
 
     /**
@@ -60,6 +63,14 @@ class OrderStatusResponse extends Response
     public function getPanAliasData(): ?PanAliasData
     {
         return $this->panAliasData;
+    }
+
+    /**
+     * @return CardHolderData|null
+     */
+    public function getCardHolderData(): ?CardHolderData
+    {
+        return $this->cardHolderData;
     }
 
 }
