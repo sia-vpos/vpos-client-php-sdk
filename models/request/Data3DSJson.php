@@ -53,14 +53,13 @@ class Data3DSJson
         foreach (get_object_vars($this) as $name => $value) {
             if (!is_null($value)) {
                 $json .= "\"" . $name . "\"";
-                $json .= "=";
+                $json .= ":";
                 $json .= "\"" . $value . "\"";
                 $json .= ",";
             }
         }
         $json = substr($json, 0, strlen($json) - 1);
         $json .= "}";
-
         return $json;
     }
 

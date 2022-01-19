@@ -68,13 +68,13 @@ class VPOSClient
         $info->setShopId($this->shopID);
         $infoMap = $info->getMacArray();
         if (isset($infoMap["3DSDATA"]))
-            $infoMap["3DSDATA"] = urlencode(AESEncoder::encrypt($this->apiKey, $infoMap["3DSDATA"]));
+            $infoMap["3DSDATA"] = AESEncoder::encrypt($this->apiKey, $infoMap["3DSDATA"]);
         $infoMap["MAC"] = $this->encoder->getRequestMac($infoMap, $this->startKey);
         $infoMap["URLBACK"] = $info->getUrlBack();
         if (isset($infoMap["TOKEN"])) {
             return $this->htmlUtils->htmlOutput($this->redirectUrl, $infoMap, true);
         }
-        return $this->htmlUtils->htmlOutput($this->redirectUrl, $infoMap);
+        return $this->htmlUtils->htmlOutput($this->redirectUrl, $infoMap, false);
 
     }
 

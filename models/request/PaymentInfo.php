@@ -197,21 +197,21 @@ class PaymentInfo
             "ACCOUNTINGMODE" => $this->accountingMode,
             "AUTHORMODE" => $this->authorMode,
             "OPTIONS" => $this->options,
-            "NAME" => $this->name,
-            "SURNAME" => $this->surname,
+            "NAME" => strpos($this->options,"B") !== false?$this->name:null,
+            "SURNAME" =>strpos($this->options,"B") !== false?$this->surname:null,
             "TAXID" => $this->taxId,
             "LOCKCARD" => $this->lockcard,
-            "COMMIS" => $this->commis,
-            "ORDDESCR" => $this->ordDescr,
+            "COMMIS" => strpos($this->options,"F") !== false?$this->commis:null,
+            "ORDDESCR" => strpos($this->options,"O") !== false||strpos("V",$this->options) !== false?$this->ordDescr:null,
             "VSID" => $this->vsid,
             "OPDESCR" => $this->opDescr,
-            "REMAININGDURATION" => $this->remainingDuration,
+            "REMAININGDURATION" => strpos($this->options,"D") !== false?$this->remainingDuration:null,
             "USERID" => $this->userId,
             "BP_POSTEPAY" => $this->bpPostepay,
             "BP_CARDS" => $this->bpCards,
-            "PHONENUMBER" => $this->phoneNumber,
-            "CAUSATION" => $this->causation,
-            "USER" => $this->userId,
+            "PHONENUMBER" => $this->network == "91"?$this->phoneNumber:null,
+            "CAUSATION" => $this->network == "91"?$this->causation:null,
+            "USER" => $this->network == "91"?$this->userId:null,
             "PRODUCTREF" => $this->productRef,
             "ANTIFRAUD" => $this->antiFraud,
             "3DSDATA" => $this->data3DS,
@@ -221,7 +221,6 @@ class PaymentInfo
             "EXPDATE" => $this->expDate,
             "NETWORK" => $this->network,
             "IBAN" => $this->iban,
-            "URLBACK" => $this->urlBack,
             "LANG" => $this->lang,
             "SHOPEMAIL" => $this->shopEmail,
             "EMAIL" => $this->email,
@@ -276,6 +275,11 @@ class PaymentInfo
     public function setUrlBack(string $urlBack): void
     {
         $this->urlBack = $urlBack;
+    }
+
+    public function getUrlBack(): ?string
+    {
+        return $this->urlBack;
     }
 
     /**
