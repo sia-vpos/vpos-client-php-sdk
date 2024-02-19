@@ -61,9 +61,9 @@ class RefundRequest extends Request
             "ORDERID" => $this->orderId,
             "AMOUNT" => $this->amount,
             "CURRENCY" => $this->currency,
-            "EXPONENT " => $this->exponent,
-            "OPDESCR " => $this->opDescr,
-            "OPTIONS " => $this->options
+            "EXPONENT" => $this->exponent,
+            "OPDESCR" => $this->opDescr,
+            "OPTIONS" => $this->options
         );
     }
 
